@@ -1,6 +1,6 @@
 <script>
 export default {
-  created () {
+  created() {
     // 调用API从本地缓存中获取数据
     /*
      * 平台 api 差异的处理方式:  api 方法统一挂载到 mpvue 名称空间, 平台判断通过 mpvuePlatform 特征字符串
@@ -12,7 +12,7 @@ export default {
 
     let logs
     if (mpvuePlatform === 'my') {
-      logs = mpvue.getStorageSync({key: 'logs'}).data || []
+      logs = mpvue.getStorageSync({ key: 'logs' }).data || []
       logs.unshift(Date.now())
       mpvue.setStorageSync({
         key: 'logs',
@@ -24,27 +24,38 @@ export default {
       mpvue.setStorageSync('logs', logs)
     }
   },
-  log () {
+  log() {
     console.log(`log at:${Date.now()}`)
   }
 }
 </script>
 
 <style>
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-}
-/* this rule will be remove */
 * {
-  transition: width 2s;
-  -moz-transition: width 2s;
-  -webkit-transition: width 2s;
-  -o-transition: width 2s;
+  margin: 0;
+  padding: 0;
+}
+page {
+  background: #f5f5f5;
+  font-size: 28rpx;
+  color: #333;
+}
+button,
+button::after {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+}
+.clearfix:after {
+  clear: both;
+  display: block;
+  visibility: hidden;
+  height: 0;
+  line-height: 0;
+  content: '';
+}
+
+.clearfix {
+  zoom: 1;
 }
 </style>
