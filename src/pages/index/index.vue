@@ -25,16 +25,19 @@ export default {
 
   created() {
     // let app = getApp()
-    mpvue.getLocation({
-      type: 'wgs84',
-      success(res) {
-        console.log(res)
-        const latitude = res.latitude
-        const longitude = res.longitude
-        const speed = res.speed
-        const accuracy = res.accuracy
-      }
-    })
+    // mpvue.getLocation({
+    //   type: 'wgs84',
+    //   success(res) {
+    //     console.log(res)
+    //     const latitude = res.latitude
+    //     const longitude = res.longitude
+    //     const speed = res.speed
+    //     const accuracy = res.accuracy
+    //   }
+    // })
+  },
+  mounted() {
+    console.log(this.$root.$mp)
   }
 }
 </script>

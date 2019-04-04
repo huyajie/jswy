@@ -1,6 +1,6 @@
 <template>
   <div class="category clearfix">
-    <div class="item" v-for="(item,index) in category" :key="index">
+    <div class="item" @click="toDetail(item)" v-for="(item,index) in category" :key="index">
       <div class="pic"></div>
       <p class="text">住家保姆</p>
     </div>
@@ -12,6 +12,11 @@ export default {
   data() {
     return {
       category: [1, 2, 3, 4, 5, 6, 7, 8]
+    }
+  },
+  methods: {
+    toDetail(item) {
+      this.$router.navigateTo({ url: '/pages/detail/main' })
     }
   }
 }
