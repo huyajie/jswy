@@ -25,8 +25,11 @@ export default {
   },
   methods: {
     toDetail(item) {
+      if (!item.query) {
+        return
+      }
       let url = `/pages/detail/main?type=${item.query}`
-      console.log(url)
+      // console.log(url)
       this.$router.navigateTo({ url })
     }
   }
