@@ -4,6 +4,8 @@ import * as router from './utils/route.js'
 import * as utils from './utils/utils.js'
 import request from './utils/request'
 import store from './store'
+
+import '../node_modules/animate.css/animate.min.css'
 Vue.config.productionTip = false
 App.mpType = 'app'
 Vue.prototype.$router = router

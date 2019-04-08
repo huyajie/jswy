@@ -8,7 +8,7 @@
         </div>
         <div class="form-label">所在城市:</div>
         <div class="form-value">
-          <!-- <picker-select :range="city" :prop="{key:'display'}" v-model="parms.suozaichengshi"></picker-select> -->
+          <picker-select :range="city" :prop="{key:'display'}" v-model="parms.suozaichengshi"></picker-select>
         </div>
       </div>
       <!-- 服务类型 -->
@@ -18,7 +18,7 @@
         </div>
         <div class="form-label">服务类型:</div>
         <div class="form-value">
-          <picker-select :disabled="false" @change="changeEvent" :range="serviceType" :prop="{key:'DISPLAY'}" v-model="parms.fuwuleixing"></picker-select>
+          <picker-select :disabled="true" @change="changeEvent" :range="serviceType" :prop="{key:'DISPLAY'}" v-model="parms.fuwuleixing"></picker-select>
         </div>
       </div>
     </div>
@@ -171,8 +171,14 @@ export default {
       return this.$store.state.select.city
     }
   },
-  mounted() {
-    this.parms.fuwuleixing = '小时工'
+  onLoad() {
+    Object.assign(this.$data, this.$options.data())
+
+    let $mp = this.$root.$mp
+    // console.log($mp)
+    if ($mp.query.type) {
+      this.parms.fuwuleixing = $mp.query.type
+    }
     this.$store.dispatch('GET_CITY')
   },
   methods: {
@@ -189,7 +195,7 @@ export default {
     // 提交表单
     submit() {
       // let a = this.$refs.startDate
-      // console.log(this.parms)
+      console.log(this.parms)
       let parm = Object.assign({}, this.parms)
       if (this.currentService === 'xiaoshigong') {
         parm.fuwushichang = `${this.hourTime}`

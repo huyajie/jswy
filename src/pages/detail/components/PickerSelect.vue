@@ -58,10 +58,10 @@ export default {
       // console.log(this.c_value)
       let index = this.ranges.indexOf(this.value)
       index = index > -1 ? index : 0
-      console.log(index)
+      // console.log(index)
 
       this.index = index
-      this.$forceUpdate()
+      // this.$forceUpdate()
       this.emitEvent()
     },
     pcikerChange(e) {
@@ -70,7 +70,7 @@ export default {
     },
     emitEvent() {
       if (this.range.length) {
-        console.log(this.ranges[this.index])
+        // console.log(this.ranges[this.index])
         this.$emit('input', this.ranges[this.index])
         this.$emit('change', this.range[this.index])
       }

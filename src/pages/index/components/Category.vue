@@ -2,7 +2,7 @@
   <div class="category clearfix">
     <div class="item" @click="toDetail(item)" v-for="(item,index) in category" :key="index">
       <div class="pic"></div>
-      <p class="text">住家保姆</p>
+      <p class="text">{{item.text}}</p>
     </div>
   </div>
 </template>
@@ -11,12 +11,23 @@
 export default {
   data() {
     return {
-      category: [1, 2, 3, 4, 5, 6, 7, 8]
+      category: [
+        { text: '住家保姆', query: '' },
+        { text: '不住家保姆', query: '' },
+        { text: '月嫂', query: '' },
+        { text: '育儿嫂', query: '' },
+        { text: '长期小时工', query: '小时工' },
+        { text: '临时小时工', query: '小时工' },
+        { text: '护工', query: '护工' },
+        { text: '快速预约', query: '' }
+      ]
     }
   },
   methods: {
     toDetail(item) {
-      this.$router.navigateTo({ url: '/pages/detail/main' })
+      let url = `/pages/detail/main?type=${item.query}`
+      console.log(url)
+      this.$router.navigateTo({ url })
     }
   }
 }

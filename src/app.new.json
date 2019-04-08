@@ -26,6 +26,12 @@
         "selectedIconPath": "static/tabs/home-active.png"
       },
       {
+        "text": "选阿姨",
+        "pagePath": "pages/list/main",
+        "iconPath": "static/tabs/home.png",
+        "selectedIconPath": "static/tabs/home-active.png"
+      },
+      {
         "text": "我",
         "pagePath": "pages/logs/main",
         "iconPath": "static/tabs/orders.png",
