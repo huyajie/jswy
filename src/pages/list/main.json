@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "选阿姨",
-  "defaultTitle": "选阿姨"
+  "defaultTitle": "选阿姨",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
 }

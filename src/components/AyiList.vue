@@ -1,14 +1,14 @@
 <template>
   <div>
     <ul class="r-list">
-      <li class="list-item" v-for="(item,index) in list" :key="index">
+      <li class="list-item" v-for="item in list" :key="item.id">
         <div class="pic">
           <img class="img" src="http://img1.qunarzz.com/sight/p0/1708/2b/2b3b94de99c0a425a3.img.jpg_200x200_2458ffb2.jpg" alt>
         </div>
         <div class="cont">
           <div>
             <p class="cont-title">
-              李阿姨
+              {{item.xingming}}
               <span class="age">44岁</span>
             </p>
             <div class="tags">
@@ -16,9 +16,9 @@
               <span class="tag">做饭做饭</span>
             </div>
             <p class="cont-detail">
-              山东人
+              {{item.jiguan}}
               <span class="cont-line">|</span>
-              初中
+              {{item.xueli}}
             </p>
           </div>
         </div>

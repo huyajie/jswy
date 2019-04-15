@@ -5,7 +5,8 @@
     "pages/detail/main",
     "pages/orderResult/main",
     "pages/logs/main",
-    "pages/counter/main"
+    "pages/counter/main",
+    "pages/charge/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -22,6 +23,12 @@
       {
         "text": "首页",
         "pagePath": "pages/index/main",
+        "iconPath": "static/tabs/home.png",
+        "selectedIconPath": "static/tabs/home-active.png"
+      },
+      {
+        "text": "选阿姨",
+        "pagePath": "pages/list/main",
         "iconPath": "static/tabs/home.png",
         "selectedIconPath": "static/tabs/home-active.png"
       },

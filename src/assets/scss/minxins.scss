@@ -2,3 +2,22 @@
   display: flex;
   align-items: center;
 }
+@function arrow-height($n) {
+  @return $n * 1.4;
+}
+@mixin arrow($size) {
+  display: inline-block;
+  position: relative;
+  border: $size solid transparent;
+  border-top-color: #333;
+  box-sizing: border-box;
+  &::after {
+    content: ' ';
+    display: inline-block;
+    position: absolute;
+    top: -(arrow-height($size));
+    left: -$size;
+    border: $size solid transparent;
+    border-top-color: #fff;
+  }
+}

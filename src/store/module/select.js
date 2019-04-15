@@ -61,14 +61,25 @@ const select = {
   },
   actions: {
     GET_CITY({ state, commit }) {
-      if (state.city.length > 0) {
-        return false
-      }
-      request.get('regions').then(res => {
-        if (res.ret === 0) {
-          commit('CHANGE_CITY', res.data)
+      return new Promise((resolve, reject) => {
+        if (state.city.length > 0) {
+          resolve(state.city)
+          return false
         }
-        console.log(res)
+        request.get('regions').then(
+          res => {
+            if (res.ret === 0) {
+              commit('CHANGE_CITY', res.data)
+              resolve(res.data)
+            } else {
+              reject(res)
+            }
+            // console.log(res)
+          },
+          err => {
+            reject(err)
+          }
+        )
       })
     }
   }

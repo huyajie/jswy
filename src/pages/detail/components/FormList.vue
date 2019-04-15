@@ -116,7 +116,7 @@
     </div>
     <div class="tips">
       说明：各城市价格不同，查看
-      <span class="link">各城市收费标准</span>
+      <text class="link" @click="goCharge">各城市收费标准</text>
     </div>
     <div class="submit-box">
       <button class="submit" :class="isSubmit?'disabed' :''" :disabled="isSubmit" :loading="isSubmit" @click="submit">立即预约</button>
@@ -182,6 +182,10 @@ export default {
     this.$store.dispatch('GET_CITY')
   },
   methods: {
+    goCharge() {
+      // console.log(111)
+      this.$router.navigateTo({ url: '/pages/charge/main' })
+    },
     // 选择开始日期
     pickStartDateChange(e) {
       console.log(e)
