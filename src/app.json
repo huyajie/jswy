@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/main",
     "pages/list/main",
+    "pages/ayidetail/main",
     "pages/detail/main",
     "pages/orderResult/main",
     "pages/logs/main",

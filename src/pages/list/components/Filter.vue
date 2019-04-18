@@ -1,29 +1,13 @@
 <template>
   <div>
     <div class="filter-wrap">
-      <div class="filter" @click="slideIn">
+      <div class="filter">
         <ul class="list">
-          <li class="item" v-for="(item,index) in filterData" :key="index">
-            {{item.data[item.currentIndex]}}
+          <li class="item" @click="filterTitleClick( index )" v-for="(item,index) in filterDataTitle" :key="index">
+            {{item.currentIndex ==0 ? item.title: item.data[item.currentIndex]}}
             <i class="icon-arrew"></i>
           </li>
-          <!-- <li class="item">
-            北京
-            <i class="icon-arrew"></i>
-          </li>
-          <li class="item">
-            住家保姆
-            <i class="icon-arrew"></i>
-          </li>
-          <li class="item">
-            3-5年经验
-            <i class="icon-arrew"></i>
-          </li>
-          <li class="item">
-            3000-3999
-            <i class="icon-arrew"></i>
-          </li>-->
-          <li class="item">筛选</li>
+          <li class="item" @click="filterTitleClick(-1)">筛选</li>
         </ul>
       </div>
     </div>
@@ -32,7 +16,7 @@
       <div class="aslide-wrap" v-if="aslide" :class="aslide ? 'animated slideInRight faster' : ''">
         <scroll-view scroll-y style="height:100%">
           <div class="filter-cont">
-            <div class="item" v-for="(item,index) in filterData" :key="index">
+            <div class="item" v-for="(item,index) in filterData" :key="index" v-show="popShowIndex ==index || popShowIndex===-1 ">
               <div class="sub-title">
                 <div class="more" @click="showMore(index)">
                   {{ item.isHide ? '全部' : '收起'}}
@@ -82,13 +66,14 @@
 export default {
   data() {
     return {
+      popShowIndex: -1,
       aslide: false,
       topShowIndex: [],
       filterData: [
         {
-          title: '籍贯',
+          title: '城市',
           isHide: true,
-          pName: 'jiguan',
+          pName: 'chengshi',
           currentIndex: 0,
           data: ['不限']
         },
@@ -122,25 +107,62 @@ export default {
             '13000～14999',
             '15000以上'
           ]
+        },
+        {
+          title: '籍贯',
+          isHide: true,
+          titleHide: true,
+          pName: 'jiguan',
+          currentIndex: 0,
+          data: ['不限']
         }
       ]
+    }
+  },
+  computed: {
+    filterDataTitle() {
+      return this.filterData.filter(item => {
+        return !item.titleHide
+      })
     }
   },
   mounted() {
     // this.filterData.forEach((item, index) => {
     //   this.topShowIndex.push(0)
     // })
-    this.$http.get('regions/86').then(res => {
-      if (res.ret === 0) {
+    // console.log(this.$store.state.list.queryType)
+    this.setType(this.$store.state.list.queryType)
+    const p = Promise.all([this.$http.get('regions/86'), this.$store.dispatch('GET_CITY')])
+
+    p.then(res => {
+      // console.log(res)
+      if (res[0].ret === 0) {
         let arr = ['不限']
-        res.data.forEach(element => {
+        res[0].data.forEach(element => {
           arr.push(element.display)
         })
-        this.filterData[0].data = arr
+        this.filterData[4].data = arr
       }
+
+      let arr2 = ['不限']
+      res[1].forEach(element => {
+        arr2.push(element.display)
+      })
+      this.filterData[0].data = arr2
       this.$emit('filter-change', this.filterData)
-      console.log(res)
     })
+    // this.$http.get('regions/86').then(res => {
+    //   if (res.ret === 0) {
+    //     let arr = ['不限']
+    //     res.data.forEach(element => {
+    //       arr.push(element.display)
+    //     })
+    //     this.filterData[0].data = arr
+    //   }
+    //   this.$emit('filter-change', this.filterData)
+    //   // console.log(res)
+    // })
+
     // this.$store.dispatch('GET_CITY').then(res => {
     //   console.log(res)
     //   let arr = ['不限']
@@ -151,9 +173,35 @@ export default {
     //   this.$emit('filter-change', this.filterData)
     // })
   },
+  onShow() {
+    // console.log(this.$store.state.list.queryType)
+    this.setType(this.$store.state.list.queryType, true)
+  },
   methods: {
+    // 侧边栏画出时根据index  显示不同得 选项
+    filterTitleClick(index) {
+      this.popShowIndex = index
+      this.slideIn()
+    },
     showMore(index) {
       this.filterData[index].isHide = !this.filterData[index].isHide
+    },
+    /**
+     * 设置类型
+     */
+    setType(type, isOnShow) {
+      if (type == '') {
+        return false
+      }
+      let index = this.filterData[1].data.findIndex(item => {
+        return item === type
+      })
+      this.filterData[1].currentIndex = index > -1 ? index : 0
+      this.$store.commit('CHANGE_QUERYTYPE', '')
+      if (isOnShow) {
+        this.$emit('filter-change', this.filterData)
+      }
+      // console.log(index)
     },
     selTag(index, subIndex) {
       if (this.filterData[index].currentIndex === subIndex) {

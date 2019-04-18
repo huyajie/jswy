@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="r-list">
-      <li class="list-item" v-for="item in list" :key="item.id">
+      <li class="list-item" v-for="item in lists" :key="item.id">
         <div class="pic">
           <img class="img" src="http://img1.qunarzz.com/sight/p0/1708/2b/2b3b94de99c0a425a3.img.jpg_200x200_2458ffb2.jpg" alt>
         </div>
@@ -12,8 +12,12 @@
               <span class="age">44岁</span>
             </p>
             <div class="tags">
-              <span class="tag">做饭</span>
-              <span class="tag">做饭做饭</span>
+              <block v-for="(item1 ,subIndex) in item.zhiyeyoushiArr" :key="item1">
+                <span class="tag" v-if="subIndex<3">{{item1}}</span>
+              </block>
+
+              <!-- <span class="tag">做饭</span> -->
+              <!-- <span class="tag">做饭做饭</span> -->
             </div>
             <p class="cont-detail">
               {{item.jiguan}}
@@ -23,7 +27,7 @@
           </div>
         </div>
         <div class="button-box">
-          <button class="button">预约</button>
+          <button class="button" @click="goDetail(item)">预约</button>
         </div>
       </li>
     </ul>
@@ -35,10 +39,47 @@ export default {
   data() {
     return {}
   },
+  computed: {
+    lists() {
+      // let arr = []
+      this.list.forEach(item => {
+        if (Object.prototype.toString.call(item) !== '[object Object]') {
+          return false
+        }
+        if (!item.zhiyeyoushiArr) {
+          let tmpArr = []
+          try {
+            let zyys = JSON.parse(item.zhiyeyoushi)
+            // console.log(zyys)
+            if (zyys) {
+              zyys.forEach(item1 => {
+                if (item1.isSelected) {
+                  tmpArr.push(item1.biaoqian)
+                }
+              })
+            }
+          } catch (error) {}
+          item.zhiyeyoushiArr = tmpArr
+        }
+      })
+      // console.log(this.list)
+      return this.list
+    }
+  },
   props: {
     list: {
       type: Array,
       default: []
+    }
+  },
+  methods: {
+    goDetail(item) {
+      if (item.id) {
+        this.$router.navigateTo({
+          url: `/pages/ayidetail/main?id=${item.id}`
+        })
+      }
+      console.log(item)
     }
   }
 }

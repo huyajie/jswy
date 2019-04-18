@@ -12,25 +12,28 @@ export default {
   data() {
     return {
       category: [
-        { text: '住家保姆', query: '' },
-        { text: '不住家保姆', query: '' },
-        { text: '月嫂', query: '' },
-        { text: '育儿嫂', query: '' },
-        { text: '长期小时工', query: '小时工' },
-        { text: '临时小时工', query: '小时工' },
-        { text: '护工', query: '护工' },
-        { text: '快速预约', query: '' }
+        { text: '住家保姆', query: '住家保姆', path: 'list' },
+        { text: '不住家保姆', query: '不住家保姆', path: 'list' },
+        { text: '月嫂', query: '月嫂', path: 'list' },
+        { text: '育儿嫂', query: '育儿嫂', path: 'list' },
+        { text: '长期小时工', query: '小时工', path: 'list' },
+        { text: '临时小时工', query: '小时工', path: 'detail' },
+        { text: '护工', query: '护工', path: 'detail' },
+        { text: '菲佣', query: '菲佣', path: 'feiyong' }
       ]
     }
   },
   methods: {
     toDetail(item) {
-      if (!item.query) {
-        return
+      if (item.path === 'list') {
+        let url = `/pages/list/main`
+        this.$store.commit('CHANGE_QUERYTYPE', item.query)
+        this.$router.switchTab({ url })
+      } else {
+        let url = `/pages/detail/main?type=${item.query}`
+        // console.log(url)
+        this.$router.navigateTo({ url })
       }
-      let url = `/pages/detail/main?type=${item.query}`
-      // console.log(url)
-      this.$router.navigateTo({ url })
     }
   }
 }

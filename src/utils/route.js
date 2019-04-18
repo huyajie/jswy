@@ -7,5 +7,8 @@ function redirectTo(obj) {
 function switchTab(obj) {
   mpvue.switchTab(obj)
 }
+function navigateBack(obj) {
+  mpvue.navigateBack(obj)
+}
 
-export { navigateTo, redirectTo, switchTab }
+export { navigateTo, redirectTo, switchTab, navigateBack }

@@ -2,7 +2,7 @@
   <div :class=" openPop ? 'open-pop' :''">
     <filter @slide-in="slideInEvent" @filter-change="filterChange"></filter>
     <ayi-list :list="list"></ayi-list>
-    <div class="is-loading">{{loadState ? '暂时没有更多数据了':'正在加载...'}}</div>
+    <button class="is-loading" :loading="!loadState">{{loadState ? '暂时没有更多数据了':' 正在加载...'}}</button>
   </div>
 </template>
 
@@ -66,7 +66,8 @@ export default {
             this.loadState = true
           }
           this.total = res.data.count
-          this.list.push(...res.data.results)
+          let tmpList = [...this.list, ...res.data.results]
+          this.list = tmpList
         } else {
           this.loadState = true
         }
@@ -133,6 +134,9 @@ export default {
   height: 60rpx;
   line-height: 60rpx;
   text-align: center;
+  font-size: 28rpx;
+  background: transparent;
+  color: #333;
 }
 </style>
 

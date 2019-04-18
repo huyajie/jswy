@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import select from './module/select'
+import list from './module/list'
 // import request from '../utils/request'
 
 Vue.use(Vuex)
@@ -12,7 +13,8 @@ const store = new Vuex.Store({
   mutations: {},
   actions: {},
   modules: {
-    select
+    select,
+    list
   }
 })
 
