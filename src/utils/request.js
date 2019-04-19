@@ -13,12 +13,12 @@ function hideLoading() {
   clearTimeout(requestTimmer)
   mpvue.hideLoading()
 }
-function get(url, data, header) {
-  return all({ url, data, header, method: 'GET' })
+function get(url, data, header, hideLoading) {
+  return all({ url, data, header, method: 'GET', hideLoading })
 }
 
-function post(url, data, header) {
-  return all({ url, data, header, method: 'POST' })
+function post(url, data, header, hideLoading) {
+  return all({ url, data, header, method: 'POST', hideLoading })
 }
 
 function all(opt) {
@@ -26,7 +26,9 @@ function all(opt) {
   let authHeader = opt.header || { 'Content-Type': 'application/json;charset=UTF-8' }
   let auth = mpvue.getStorageSync('token')
   if (auth) authHeader.token = auth
-  showLoaing()
+  if (!opt.hideLoading) {
+    showLoaing()
+  }
   return new Promise((resolve, reject) => {
     mpvue.request({
       url: wholeUrl,

@@ -11,4 +11,7 @@ function showError(str) {
     })
   }
 }
-export { showError }
+function previewImage(obj) {
+  mpvue.previewImage(obj)
+}
+export { showError, previewImage }

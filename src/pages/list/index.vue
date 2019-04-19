@@ -50,11 +50,13 @@ export default {
         console.log('没有更多了')
         return false
       }
+      if (type === 1) {
+        this.list = []
+      }
       this.isLoaded = true
-      this.$http.get('ayis', this.parms).then(res => {
+      this.$http.get('ayis', this.parms, null, true).then(res => {
         this.isLoaded = false
         if (type === 1) {
-          this.list = []
           // setTimeout(() => {
           mpvue.hideNavigationBarLoading()
           //   // 停止下拉动作
@@ -62,12 +64,14 @@ export default {
           // }, 500)
         }
         if (res.ret == 0) {
-          if (res.data.results.length < this.pageSize) {
-            this.loadState = true
-          }
           this.total = res.data.count
           let tmpList = [...this.list, ...res.data.results]
           this.list = tmpList
+          if (res.data.results.length < this.pageSize) {
+            this.$nextTick(() => {
+              this.loadState = true
+            })
+          }
         } else {
           this.loadState = true
         }
@@ -114,7 +118,7 @@ export default {
   },
   onReachBottom() {
     this.reachBottom()
-    console.log(1)
+    // console.log(1)
   },
   onPullDownRefresh: function() {
     this.refresh()

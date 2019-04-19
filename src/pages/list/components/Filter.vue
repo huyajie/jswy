@@ -181,6 +181,9 @@ export default {
     // 侧边栏画出时根据index  显示不同得 选项
     filterTitleClick(index) {
       this.popShowIndex = index
+      if (index > -1) {
+        this.filterData[index].isHide = false
+      }
       this.slideIn()
     },
     showMore(index) {

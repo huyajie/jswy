@@ -12,7 +12,7 @@
               ID:{{detail.id}}
             </p>
 
-            <p class="cont-detail">工作类型：{{detail.gongzuoleixing}}&emsp;&emsp;工资：{{detail.qiwangxinzi2}}/月</p>
+            <p class="cont-detail">工作类型：{{detail.gongzuoleixing}}&emsp;工资：{{detail.qiwangxinzi2}}/月</p>
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@
         <span class="right-cont">{{detail.minzu}}</span>民族
       </div>
       <div class="item clearfix">
-        <span class="right-cont">无</span>年龄
+        <span class="right-cont">{{age}}</span>年龄
       </div>
       <div class="item clearfix">
         <span class="right-cont">{{detail.shuxiang}}</span>属相
@@ -54,18 +54,21 @@
         <span class="right-cont">{{detail.qzshi}}</span>求职区域
       </div>
       <div class="item clearfix">
-        <span class="right-cont">{{detail.xiuximeizhou}}</span>休息天数
+        <span class="right-cont">{{detail.xiuximeizhou}}/每周</span>休息天数
       </div>
     </div>
     <div class="ayi-cont">
       <div class="item">
         <div class="sub-tit">自我介绍</div>
-        <div class="cont">{{detail.ziwojieshao}}</div>
+        <div class="cont">{{detail.ziwojieshao || '暂无'}}</div>
       </div>
       <div class="item">
         <div class="sub-tit">证件 / 作品展示</div>
         <div class="cont-img clearfix">
-          <div class="img-item">
+          <div class="img-item" @click="previewImage(item)" v-for="(item,index) in zhengjiantupian" :key="index">
+            <img class="img" mode="aspectFit" :src="item" alt>
+          </div>
+          <!-- <div class="img-item">
             <img class="img" mode="aspectFit" src="https://imgs.qunarzz.com/sight/p0/1708/2b/2b3b94de99c0a425a3.img.jpg_222x168_93cb017d.jpg" alt>
           </div>
           <div class="img-item">
@@ -73,7 +76,7 @@
           </div>
           <div class="img-item">
             <img class="img" mode="aspectFit" src="http://img1.qunarzz.com/sight/p0/1708/2b/2b3b94de99c0a425a3.img.jpg_200x200_2458ffb2.jpg" alt>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
@@ -81,8 +84,43 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
+
 export default {
+  methods: {
+    previewImage(link) {
+      this.$utils.previewImage({
+        current: link, // 当前显示图片的http链接
+        urls: this.zhengjiantupian // 需要预览的图片http链接列表
+      })
+    }
+  },
   computed: {
+    age() {
+      let ayiBirthday = dayjs(this.detail.shengri)
+      if (ayiBirthday.isValid()) {
+        return dayjs().diff(ayiBirthday, 'year')
+        // return dayjs(this.detail.shengri).format('YYYY-MM-DD')
+      } else {
+        return ''
+      }
+    },
+    zhengjiantupian() {
+      let arr = []
+      if (this.detail.zhengjiantupian) {
+        try {
+          let pics = JSON.parse(this.detail.zhengjiantupian)
+          // console.log(zyys)
+          if (pics) {
+            // pics.forEach(item => {
+            //   arr.push(item.replace(/ /g, '%20'))
+            // })
+            arr = pics
+          }
+        } catch (error) {}
+      }
+      return arr
+    },
     zhiyeyoushi() {
       let arr = []
       if (this.detail.zhiyeyoushi) {
@@ -189,6 +227,7 @@ export default {
         width: 120rpx;
         height: 120rpx;
         margin-right: 20rpx;
+        margin-bottom: 20rpx;
         // background: red;
         .img {
           width: 100%;
