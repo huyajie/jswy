@@ -89,10 +89,10 @@ import dayjs from 'dayjs'
 export default {
   methods: {
     previewImage(link) {
-      this.$utils.previewImage({
-        current: link, // 当前显示图片的http链接
-        urls: this.zhengjiantupian // 需要预览的图片http链接列表
-      })
+      // this.$utils.previewImage({
+      //   current: link, // 当前显示图片的http链接
+      //   urls: this.zhengjiantupian // 需要预览的图片http链接列表
+      // })
     }
   },
   computed: {
