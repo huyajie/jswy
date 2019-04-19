@@ -9,7 +9,7 @@
           <div>
             <p class="cont-title">
               {{item.xingming}}
-              <span class="age">44岁</span>
+              <span class="age">{{item.age || ''}}岁</span>
             </p>
             <div class="tags">
               <block v-for="(item1 ,subIndex) in item.zhiyeyoushiArr" :key="item1">
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
 export default {
   data() {
     return {}
@@ -60,6 +61,15 @@ export default {
             }
           } catch (error) {}
           item.zhiyeyoushiArr = tmpArr
+        }
+        if (!item.age) {
+          let ayiBirthday = dayjs(item.shengri)
+          if (ayiBirthday.isValid()) {
+            item.age = dayjs().diff(ayiBirthday, 'year')
+            // return dayjs(this.detail.shengri).format('YYYY-MM-DD')
+          } else {
+            item.age = ''
+          }
         }
       })
       // console.log(this.list)
