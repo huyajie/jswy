@@ -3,7 +3,7 @@
     <ul class="r-list">
       <li class="list-item" v-for="item in lists" :key="item.id">
         <div class="pic">
-          <img class="img" src="http://img1.qunarzz.com/sight/p0/1708/2b/2b3b94de99c0a425a3.img.jpg_200x200_2458ffb2.jpg" alt>
+          <img class="img" :src="item.photo ? item.photo : defaultHead" alt>
         </div>
         <div class="cont">
           <div>
@@ -36,9 +36,12 @@
 
 <script>
 import dayjs from 'dayjs'
+const defaultHead = require('@/assets/images/list/default_head.jpg')
 export default {
   data() {
-    return {}
+    return {
+      defaultHead: defaultHead
+    }
   },
   computed: {
     lists() {
@@ -80,14 +83,21 @@ export default {
     list: {
       type: Array,
       default: []
+    },
+    type: {
+      type: String,
+      default: 'simple'
     }
   },
   methods: {
     goDetail(item) {
       if (item.id) {
+        // if (this.type === 'redirect') {
+        // } else {
         this.$router.navigateTo({
           url: `/pages/ayidetail/main?id=${item.id}`
         })
+        // }
       }
       console.log(item)
     }

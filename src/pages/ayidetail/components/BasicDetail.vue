@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="submit-cont">
+      <button class="btn" @click="submit">立即预约</button>
+    </div>
     <div class="ayi-info">
       <div class="flex-box">
         <div class="pic">
@@ -143,6 +146,11 @@ export default {
     detail: {
       default: {}
     }
+  },
+  methods: {
+    submit() {
+      this.$emit('submit')
+    }
   }
 }
 </script>
@@ -150,7 +158,21 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/variables.scss';
 @import '@/assets/scss/minxins.scss';
-
+.submit-cont {
+  position: fixed;
+  z-index: 99;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  .btn {
+    height: 90rpx;
+    line-height: 90rpx;
+    background: $primary;
+    color: #fff;
+    font-size: 30rpx;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  }
+}
 .ayi-info {
   background-color: #fff;
   padding-left: 30rpx;

@@ -29,10 +29,14 @@ export default {
         let url = `/pages/list/main`
         this.$store.commit('CHANGE_QUERYTYPE', item.query)
         this.$router.switchTab({ url })
-      } else {
+      } else if (item.path === 'detail') {
         let url = `/pages/detail/main?type=${item.query}`
         // console.log(url)
         this.$router.navigateTo({ url })
+      } else if (item.path === 'feiyong') {
+        this.$router.navigateTo({
+          url: `/pages/webview/main?src=${encodeURIComponent('https://fy.51baomu.cn?a=12&b=2')}`
+        })
       }
     }
   }

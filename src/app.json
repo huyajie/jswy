@@ -7,7 +7,9 @@
     "pages/orderResult/main",
     "pages/logs/main",
     "pages/counter/main",
-    "pages/charge/main"
+    "pages/charge/main",
+    "pages/webview/main",
+    "pages/login/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

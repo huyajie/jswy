@@ -20,10 +20,7 @@ export default {
     },
     bannerList: {
       type: Array,
-      default: [
-        'http://img1.qunarzz.com/des-mis/ad/1704/85/e817a31674a37f.jpg',
-        'http://m.51baomu.cn/tupian/jzxiaochengxu/xbanner.png'
-      ]
+      default: [require('@/assets/images/home/banner.jpg'), 'http://m.51baomu.cn/tupian/jzxiaochengxu/xbanner.png']
     }
   },
   created() {

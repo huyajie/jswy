@@ -1,8 +1,8 @@
 <template>
   <div>
     <div v-show="isLoad">
-      <basic-detail :detail="detail"></basic-detail>
-      <recommend-list></recommend-list>
+      <basic-detail @submit="onSubmit" :detail="detail"></basic-detail>
+      <recommend-list :list="list" type="redirect"></recommend-list>
     </div>
     <load-effect v-if="!isLoad"></load-effect>
   </div>
@@ -12,6 +12,7 @@
 import LoadEffect from '@/components/LoadEffect.vue'
 import BasicDetail from './components/BasicDetail.vue'
 import RecommendList from './components/Recommend'
+import Auth from '@/utils/auth.js'
 
 export default {
   components: {
@@ -22,7 +23,8 @@ export default {
   data() {
     return {
       isLoad: false,
-      detail: {}
+      detail: {},
+      list: []
     }
   },
   onLoad() {
@@ -40,10 +42,31 @@ export default {
           this.detail = res.data[0]
         }
       })
+      this.getRecommend()
     } else {
       this.$router.navigateBack({
         delta: 1
       })
+    }
+  },
+  methods: {
+    onSubmit() {
+      Auth.checkLogin(this.$root.$mp)
+    },
+    getRecommend() {
+      this.$http
+        .get('tjayis', {
+          page: 1,
+          page_size: 5
+        })
+        .then(res => {
+          // console.log(res)
+          if (res.ret === 0) {
+            this.list = res.data.results
+          } else {
+            this.list = []
+          }
+        })
     }
   }
 }

@@ -15,7 +15,13 @@ export default {
   },
   data() {
     return {
-      list: [1, 2, 3, 4, 5]
+      // list: [1, 2, 3, 4, 5]
+    }
+  },
+  props: {
+    list: {
+      type: Array,
+      default: []
     }
   }
 }

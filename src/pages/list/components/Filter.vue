@@ -134,23 +134,33 @@ export default {
     this.setType(this.$store.state.list.queryType)
     const p = Promise.all([this.$http.get('regions/86'), this.$store.dispatch('GET_CITY')])
 
-    p.then(res => {
-      // console.log(res)
-      if (res[0].ret === 0) {
-        let arr = ['不限']
-        res[0].data.forEach(element => {
-          arr.push(element.display)
-        })
-        this.filterData[4].data = arr
-      }
+    p
+      .then(res => {
+        console.log(res)
+        if (res[0].ret === 0) {
+          let arr = ['不限']
+          res[0].data.forEach(element => {
+            arr.push(element.display)
+          })
+          this.filterData[4].data = arr
+        }
+        if (res[1].length > 0) {
+          let arr2 = ['不限']
+          res[1].forEach(element => {
+            arr2.push(element.display)
+          })
+          this.filterData[0].data = arr2
+        }
+        this.$emit('filter-change', this.filterData)
 
-      let arr2 = ['不限']
-      res[1].forEach(element => {
-        arr2.push(element.display)
+        // console.log(11)
+        if (res[0].ret !== 0 || res[1].ret !== 0) {
+        }
       })
-      this.filterData[0].data = arr2
-      this.$emit('filter-change', this.filterData)
-    })
+      .catch(err => {
+        // console.log(err)
+        this.$emit('filter-change', this.filterData)
+      })
     // this.$http.get('regions/86').then(res => {
     //   if (res.ret === 0) {
     //     let arr = ['不限']

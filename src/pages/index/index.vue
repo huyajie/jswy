@@ -2,7 +2,8 @@
   <div>
     <banner></banner>
     <category></category>
-    <recommend-list></recommend-list>
+    <recommend-list :list="list"></recommend-list>
+    <conpon-mask></conpon-mask>
   </div>
 </template>
 
@@ -10,15 +11,19 @@
 import Banner from './components/Banner'
 import Category from './components/Category'
 import RecommendList from './components/Recommend'
+import ConponMask from './components/ConponMask'
 export default {
   data() {
-    return {}
+    return {
+      list: []
+    }
   },
 
   components: {
     Banner,
     Category,
-    RecommendList
+    RecommendList,
+    ConponMask
   },
 
   methods: {},
@@ -37,7 +42,20 @@ export default {
     // })
   },
   mounted() {
-    console.log(this.$root.$mp)
+    // console.log(this.$root.$mp)
+    this.$http
+      .get('tjayis', {
+        page: 1,
+        page_size: 5
+      })
+      .then(res => {
+        // console.log(res)
+        if (res.ret === 0) {
+          this.list = res.data.results
+        } else {
+          this.list = []
+        }
+      })
   }
 }
 </script>
