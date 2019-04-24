@@ -24,7 +24,7 @@ const Auth = {
     removeStorageSync(TOKEN)
     removeStorageSync(INFO)
   },
-  checkLogin() {
+  checkLogin(type) {
     let expiry = this.getInfo('expiry')
     // console.log(dayjs.unix(expiry).format('YYYY-MM-DD HH:mm:ss'))
     // console.log(page)
@@ -35,9 +35,15 @@ const Auth = {
     } else {
       this.remove()
       let url = encodeURIComponent(getCurrentUrl())
-      navigateTo({
-        url: `/pages/login/main?redirect=${url}`
-      })
+      if (type === 'redirect') {
+        redirectTo({
+          url: `/pages/login/main?redirect=/${url}&type=redirect`
+        })
+      } else {
+        navigateTo({
+          url: `/pages/login/main`
+        })
+      }
       return false
     }
   }

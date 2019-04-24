@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-show="isLoad">
+    <div v-show="isLoad" class="wrap">
       <basic-detail @submit="onSubmit" :detail="detail"></basic-detail>
       <recommend-list :list="list" type="redirect"></recommend-list>
     </div>
@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      Auth.checkLogin(this.$root.$mp)
+      Auth.checkLogin()
     },
     getRecommend() {
       this.$http
@@ -73,5 +73,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.wrap {
+  padding-bottom: 90rpx;
+}
 </style>
 

@@ -33,6 +33,9 @@ export default {
     // this.query = $mp.query
     console.log($mp)
     Object.assign(this.query, $mp.query)
+    if (this.query.redirect) {
+      this.query.redirect = decodeURIComponent(this.query.redirect)
+    }
   },
   methods: {
     //获取你微信手机号 加密信息
@@ -77,7 +80,7 @@ export default {
           url: this.query.redirect
         })
       } else {
-        this.switchTab({
+        this.$router.switchTab({
           url: '/pages/index/main'
         })
       }

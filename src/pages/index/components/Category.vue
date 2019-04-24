@@ -1,25 +1,26 @@
 <template>
   <div class="category clearfix">
     <div class="item" @click="toDetail(item)" v-for="(item,index) in category" :key="index">
-      <div class="pic"></div>
+      <div class="pic">
+        <img class="img" :src="item.icon" alt>
+      </div>
       <p class="text">{{item.text}}</p>
     </div>
   </div>
 </template>
-
 <script>
 export default {
   data() {
     return {
       category: [
-        { text: '住家保姆', query: '住家保姆', path: 'list' },
-        { text: '不住家保姆', query: '不住家保姆', path: 'list' },
-        { text: '月嫂', query: '月嫂', path: 'list' },
-        { text: '育儿嫂', query: '育儿嫂', path: 'list' },
-        { text: '长期小时工', query: '小时工', path: 'list' },
-        { text: '临时小时工', query: '小时工', path: 'detail' },
-        { text: '护工', query: '护工', path: 'detail' },
-        { text: '菲佣', query: '菲佣', path: 'feiyong' }
+        { text: '住家保姆', query: '住家保姆', path: 'list', icon: require('@/assets/images/home/1.png') },
+        { text: '不住家保姆', query: '不住家保姆', path: 'list', icon: require('@/assets/images/home/2.png') },
+        { text: '月嫂', query: '月嫂', path: 'list', icon: require('@/assets/images/home/3.png') },
+        { text: '育儿嫂', query: '育儿嫂', path: 'list', icon: require('@/assets/images/home/4.png') },
+        { text: '长期小时工', query: '小时工', path: 'list', icon: require('@/assets/images/home/5.png') },
+        { text: '临时小时工', query: '小时工', path: 'detail', icon: require('@/assets/images/home/6.png') },
+        { text: '护工', query: '护工', path: 'detail', icon: require('@/assets/images/home/7.png') },
+        { text: '菲佣', query: '菲佣', path: 'feiyong', icon: require('@/assets/images/home/8.png') }
       ]
     }
   },
@@ -55,8 +56,12 @@ export default {
       width: 120rpx;
       height: 120rpx;
       margin: 0 auto;
-      background: #75d18f;
+      // background: #75d18f;
       border-radius: 50%;
+      .img {
+        width: 120rpx;
+        height: 120rpx;
+      }
     }
     .text {
       text-align: center;

@@ -36,7 +36,7 @@
         <span class="right-cont">{{detail.minzu}}</span>民族
       </div>
       <div class="item clearfix">
-        <span class="right-cont">{{age}}</span>年龄
+        <span class="right-cont">{{age}}岁</span>年龄
       </div>
       <div class="item clearfix">
         <span class="right-cont">{{detail.shuxiang}}</span>属相
