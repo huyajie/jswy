@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="state">
+    <div class="state" v-if="type ==1">
       <template v-if="state==1">
         <div class="top">
           <img class="img" src="../../assets/images/yuyue/yycg.png">预约成功
@@ -20,19 +20,31 @@
         </div>
       </template>
     </div>
+    <div v-if="type == 2">
+      <ayi-order :state="state"></ayi-order>
+    </div>
   </div>
 </template>
 
 <script>
+import AyiOrder from './components/AyiOrder.vue'
 export default {
+  components: {
+    AyiOrder
+  },
   data() {
     return {
-      state: ''
+      state: '', // 1成功  2失败
+      type: 1 //1  小时工和护工预约结果页面   2 阿姨预约结果页面
     }
   },
-  mounted() {
+  onLoad() {
+    Object.assign(this.$data, this.$options.data())
+    let query = this.$root.$mp.query
     this.state = this.$root.$mp.query.state
-    console.log(this.$root.$mp.query)
+    if (query.type) {
+      this.type = query.type
+    }
   }
 }
 </script>

@@ -1,8 +1,11 @@
 <template>
   <div>
     <!-- <phone-login></phone-login> -->
-    <banner :bannerList="bannerList"></banner>
-    <select-login @get-phone="getPhone"></select-login>
+    <div v-show="checkType">
+      <banner :bannerList="bannerList"></banner>
+      <select-login @get-phone="getPhone" @login-bytel="onLogingBytel"></select-login>
+    </div>
+    <phone-login v-if="!checkType" @get-phone="getPhone" @login-suess="onPhoneLogin"></phone-login>
   </div>
 </template>
 
@@ -20,6 +23,7 @@ export default {
   },
   data() {
     return {
+      checkType: true,
       bannerList: ['http://m.51baomu.cn/tupian/jzxiaochengxu/xbanner.png'],
       query: {
         type: 'back',
@@ -38,6 +42,16 @@ export default {
     }
   },
   methods: {
+    //切换页面
+    onLogingBytel() {
+      this.checkType = false
+      console.log(1)
+    },
+    //手机号密码登录成功回调
+    onPhoneLogin(d) {
+      console.log(d)
+      this.loginSuccess()
+    },
     //获取你微信手机号 加密信息
     getPhone(d) {
       if (d.errMsg === 'getPhoneNumber:ok') {

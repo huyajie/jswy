@@ -92,12 +92,15 @@ export default {
   methods: {
     goDetail(item) {
       if (item.id) {
-        // if (this.type === 'redirect') {
-        // } else {
-        this.$router.navigateTo({
-          url: `/pages/ayidetail/main?id=${item.id}`
-        })
-        // }
+        if (getCurrentPages && getCurrentPages().length >= 9) {
+          this.$router.redirectTo({
+            url: `/pages/ayidetail/main?id=${item.id}`
+          })
+        } else {
+          this.$router.navigateTo({
+            url: `/pages/ayidetail/main?id=${item.id}`
+          })
+        }
       }
       console.log(item)
     }

@@ -4,6 +4,7 @@
       <div class="sub-tit-inner">推荐阿姨</div>
     </div>
     <ayi-list :list="list"></ayi-list>
+    <!-- type="redirect" -->
   </div>
 </template>
 

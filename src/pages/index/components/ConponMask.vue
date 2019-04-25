@@ -21,7 +21,7 @@ export default {
     goConpon() {
       this.hideConpon()
       this.$router.navigateTo({
-        url: `/pages/webview/main?src=${encodeURIComponent('https://m.51baomu.cn/xiaochengxu/200youhui')}`
+        url: `/pages/webview/main?src=${encodeURIComponent('https://m.51baomu.cn/xiaochengxu/200youhui/')}`
       })
 
       //

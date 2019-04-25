@@ -46,6 +46,9 @@ button::after {
   border: none;
   border-radius: 0;
 }
+button.disabled {
+  background: #999 !important;
+}
 .clearfix:after {
   clear: both;
   display: block;

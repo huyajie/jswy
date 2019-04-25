@@ -11,11 +11,11 @@
         <div class="cont">
           <div>
             <p class="cont-title">
-              <span class="big">{{detail.xingming}}</span>
-              ID:{{detail.id}}
+              <span class="big">{{details.xingming}}</span>
+              ID:{{details.id}}
             </p>
 
-            <p class="cont-detail">工作类型：{{detail.gongzuoleixing}}&emsp;工资：{{detail.qiwangxinzi2}}/月</p>
+            <p class="cont-detail">工作类型：{{details.gongzuoleixing}}&emsp;工资：{{details.qiwangxinzi2}}/月</p>
           </div>
         </div>
       </div>
@@ -27,43 +27,43 @@
     </div>
     <div class="ayi-detail">
       <div class="item clearfix">
-        <span class="right-cont">{{detail.xingbie}}</span>性别
+        <span class="right-cont">{{details.xingbie}}</span>性别
       </div>
       <div class="item clearfix">
-        <span class="right-cont">{{detail.jiguan}}</span>籍贯
+        <span class="right-cont">{{details.jiguan}}</span>籍贯
       </div>
       <div class="item clearfix">
-        <span class="right-cont">{{detail.minzu}}</span>民族
+        <span class="right-cont">{{details.minzu}}</span>民族
       </div>
       <div class="item clearfix">
         <span class="right-cont">{{age}}岁</span>年龄
       </div>
       <div class="item clearfix">
-        <span class="right-cont">{{detail.shuxiang}}</span>属相
+        <span class="right-cont">{{details.shuxiang}}</span>属相
       </div>
       <div class="item clearfix">
-        <span class="right-cont">{{detail.xingzuo}}</span>星座
+        <span class="right-cont">{{details.xingzuo}}</span>星座
       </div>
       <div class="item clearfix">
-        <span class="right-cont">{{detail.hunyin}}</span>婚姻状况
+        <span class="right-cont">{{details.hunyin}}</span>婚姻状况
       </div>
       <div class="item clearfix">
-        <span class="right-cont">{{detail.xueli}}</span>最高学历
+        <span class="right-cont">{{details.xueli}}</span>最高学历
       </div>
       <div class="item clearfix">
-        <span class="right-cont">{{detail.curshi}}</span>当前城市
+        <span class="right-cont">{{details.curshi}}</span>当前城市
       </div>
       <div class="item clearfix">
-        <span class="right-cont">{{detail.qzshi}}</span>求职区域
+        <span class="right-cont">{{details.qzshi}}</span>求职区域
       </div>
       <div class="item clearfix">
-        <span class="right-cont">{{detail.xiuximeizhou}}/每周</span>休息天数
+        <span class="right-cont">{{details.xiuximeizhou}}/每周</span>休息天数
       </div>
     </div>
     <div class="ayi-cont">
       <div class="item">
         <div class="sub-tit">自我介绍</div>
-        <div class="cont">{{detail.ziwojieshao || '暂无'}}</div>
+        <div class="cont">{{details.ziwojieshao || '暂无'}}</div>
       </div>
       <div class="item">
         <div class="sub-tit">证件 / 作品展示</div>
@@ -92,13 +92,25 @@ import dayjs from 'dayjs'
 export default {
   methods: {
     previewImage(link) {
-      // this.$utils.previewImage({
-      //   current: link, // 当前显示图片的http链接
-      //   urls: this.zhengjiantupian // 需要预览的图片http链接列表
-      // })
+      this.$utils.previewImage({
+        current: link, // 当前显示图片的http链接
+        urls: this.zhengjiantupian // 需要预览的图片http链接列表
+      })
+    },
+    submit() {
+      this.$emit('submit')
     }
   },
   computed: {
+    details() {
+      let obj = {}
+      for (const key in this.detail) {
+        if (this.detail.hasOwnProperty(key)) {
+          obj[key] = this.detail[key] ? this.detail[key] : ''
+        }
+      }
+      return obj
+    },
     age() {
       let ayiBirthday = dayjs(this.detail.shengri)
       if (ayiBirthday.isValid()) {
@@ -145,11 +157,6 @@ export default {
   props: {
     detail: {
       default: {}
-    }
-  },
-  methods: {
-    submit() {
-      this.$emit('submit')
     }
   }
 }

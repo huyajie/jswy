@@ -48,4 +48,9 @@ function getCurrentUrl() {
 
   return urlWithArgs
 }
-export { showError, previewImage, setStorageSync, getStorageSync, removeStorageSync, getCurrentUrl }
+
+function checkMobile(tel) {
+  let reg = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|17[0|1|3|6|7|8]|18[0-9])\d{8}$/
+  return reg.test(tel)
+}
+export { showError, previewImage, setStorageSync, getStorageSync, removeStorageSync, getCurrentUrl, checkMobile }

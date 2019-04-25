@@ -17,6 +17,7 @@ export default {
     if ($mp.query.src) {
       let srcView = decodeURIComponent($mp.query.src)
       this.srcWebView = srcView
+      console.log(srcView)
     } else {
       //
     }
