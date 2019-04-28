@@ -25,15 +25,17 @@ export default {
     return {
       isLoad: false,
       detail: {},
-      list: []
+      list: [],
+      id: ''
     }
   },
   onLoad() {
     Object.assign(this.$data, this.$options.data())
     let $mp = this.$root.$mp
     // console.log($mp)
-    // let id = $mp.query.id
-    let id = 953
+    this.id = $mp.query.id
+    let id = $mp.query.id
+    // let id = 953
 
     if (id) {
       this.$http.get(`ayis/${id}`, {}, null, true).then(res => {
@@ -66,9 +68,35 @@ export default {
       if (!Auth.checkLogin()) {
         return false
       }
-      this.$router.navigateTo({
-        url: `/pages/orderResult/main?type=2&state=1`
-      })
+      let mobile = Auth.getInfo('shoujihao')
+      console.log(mobile)
+      let parm = {
+        baomu_id: this.id,
+        // shoujihao : mobile
+        shoujihao: '18612191607'
+      }
+      this.$http.post('yuyue', parm).then(
+        res => {
+          let state = ''
+          if (res.ret === 0) {
+            state = 1
+          } else {
+            state = 2
+          }
+          this.$router.navigateTo({
+            url: `/pages/orderResult/main?type=2&state=${state}`
+          })
+          console.log(res)
+        },
+        err => {
+          this.$router.navigateTo({
+            url: `/pages/orderResult/main?type=2&state=2`
+          })
+        }
+      )
+      // this.$router.navigateTo({
+      //   url: `/pages/orderResult/main?type=2&state=1`
+      // })
     },
     getRecommend() {
       return this.$http

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <banner></banner>
+    <banner :banner-list="bannerList"></banner>
     <category></category>
     <recommend-list :list="list"></recommend-list>
     <conpon-mask></conpon-mask>
@@ -15,7 +15,8 @@ import ConponMask from './components/ConponMask'
 export default {
   data() {
     return {
-      list: []
+      list: [],
+      bannerList: ['http://m.51baomu.cn/tupian/jzxiaochengxu/xbanner.png', require('@/assets/images/home/banner.jpg')]
     }
   },
 

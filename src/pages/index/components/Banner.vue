@@ -20,7 +20,7 @@ export default {
     },
     bannerList: {
       type: Array,
-      default: [require('@/assets/images/home/banner.jpg'), 'http://m.51baomu.cn/tupian/jzxiaochengxu/xbanner.png']
+      default: ['http://m.51baomu.cn/tupian/jzxiaochengxu/xbanner.png']
     }
   },
   created() {

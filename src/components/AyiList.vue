@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="r-list">
-      <li class="list-item" v-for="item in lists" :key="item.id">
+      <li class="list-item" v-for="item in lists" :key="item.id" @click="goDetail(item)">
         <div class="pic">
           <img class="img" :src="item.photo ? item.photo : defaultHead" alt>
         </div>
@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="button-box">
-          <button class="button" @click="goDetail(item)">预约</button>
+          <button class="button">预约</button>
         </div>
       </li>
     </ul>

@@ -206,6 +206,11 @@ export default {
       if (type == '') {
         return false
       }
+      this.filterData.forEach(item => {
+        if (item.currentIndex > 0) {
+          item.currentIndex = 0
+        }
+      })
       let index = this.filterData[1].data.findIndex(item => {
         return item === type
       })
