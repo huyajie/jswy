@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="submit-cont">
-      <button class="btn" @click="submit">立即预约</button>
+      <button class="btn" :class="submitLoading?'disabled' : ''" @click="submit" :disabled="submitLoading" :loading="submitLoading">立即预约</button>
     </div>
     <div class="ayi-info">
       <div class="flex-box">
@@ -93,6 +93,7 @@ const defaultHead = require('@/assets/images/list/default_head.jpg')
 export default {
   data() {
     return {
+      submitLoading: false,
       defaultHead: defaultHead
     }
   },

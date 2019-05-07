@@ -39,6 +39,9 @@ export default {
     //     const longitude = res.longitude
     //     const speed = res.speed
     //     const accuracy = res.accuracy
+    //   },
+    //   fail(err) {
+    //     console.log(err)
     //   }
     // })
   },

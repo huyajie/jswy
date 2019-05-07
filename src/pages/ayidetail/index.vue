@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-show="isLoad" class="wrap">
-      <basic-detail @submit="onSubmit" :detail="detail"></basic-detail>
+      <basic-detail ref="detail" @submit="onSubmit" :detail="detail"></basic-detail>
       <recommend-list :list="list"></recommend-list>
     </div>
     <load-effect v-if="!isLoad"></load-effect>
@@ -71,12 +71,15 @@ export default {
       let mobile = Auth.getInfo('shoujihao')
       console.log(mobile)
       let parm = {
-        baomu_id: this.id,
+        bmid: this.id
         // shoujihao : mobile
-        shoujihao: '18612191607'
+        // lianxidianhua: '18612191607'
       }
-      this.$http.post('yuyue', parm).then(
+      this.$refs.detail.submitLoading = true
+
+      this.$http.post('yuyueayi', parm).then(
         res => {
+          this.$refs.detail.submitLoading = false
           let state = ''
           if (res.ret === 0) {
             state = 1
@@ -89,6 +92,7 @@ export default {
           console.log(res)
         },
         err => {
+          this.$refs.detail.submitLoading = false
           this.$router.navigateTo({
             url: `/pages/orderResult/main?type=2&state=2`
           })

@@ -16,21 +16,43 @@ function previewImage(obj) {
 }
 
 function setStorageSync(key, value) {
-  try {
-    mpvue.setStorageSync(key, value)
-  } catch (e) {}
+  if (mpvuePlatform === 'my') {
+    try {
+      mpvue.setStorageSync({
+        key: key,
+        data: value
+      })
+    } catch (e) {}
+  } else {
+    try {
+      mpvue.setStorageSync(key, value)
+    } catch (e) {}
+  }
 }
 function getStorageSync(key) {
   let r = ''
-  try {
-    r = mpvue.getStorageSync(key)
-  } catch (e) {}
+  if (mpvuePlatform === 'my') {
+    try {
+      r = mpvue.getStorageSync({ key })
+    } catch (e) {}
+  } else {
+    try {
+      r = mpvue.getStorageSync(key)
+    } catch (e) {}
+  }
+
   return r
 }
 function removeStorageSync(key) {
-  try {
-    mpvue.removeStorageSync(key)
-  } catch (e) {}
+  if (mpvuePlatform === 'my') {
+    try {
+      mpvue.removeStorageSync({ key })
+    } catch (e) {}
+  } else {
+    try {
+      mpvue.removeStorageSync(key)
+    } catch (e) {}
+  }
 }
 function getCurrentUrl() {
   let pages = getCurrentPages() //获取加载的页面
