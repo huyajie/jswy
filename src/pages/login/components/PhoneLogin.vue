@@ -6,7 +6,7 @@
           <img class="icon" mode="aspectFit" src="../../../assets/images/login/mobile.png" alt>
         </div>
         <input class="input" v-model="mobile" type="number" placeholder="请输入手机号码">
-        <img mode="aspectFit" src="../../../assets/images/login/close.png" alt class="close">
+        <img mode="aspectFit" src="../../../assets/images/login/close.png" alt @click="mobile=''" class="close">
       </div>
       <div class="input-block">
         <div class="icon-box">
@@ -18,11 +18,11 @@
     </div>
     <div class="form-submit">
       <div class="wx-code">
-        <span class="copy" @click="copyWxCode">一键复制</span> 收不到验证码？请加微信 15210018545
+        <div class="copy" @click="copyWxCode">一键复制</div>收不到验证码？请加微信 15210018545
       </div>
       <button class="submit" :class="submitLoading?'disabled' : ''" @click="submit" :disabled="submitLoading" :loading="submitLoading">确定</button>
     </div>
-    <div class="wx-login">
+    <div class="wx-login" v-if="isWX">
       <p>使用第三方登录</p>
       <button class="btn" hover-class="none" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
         <img class="img" src="../../../assets/images/login/wechat.png" alt>
@@ -35,6 +35,7 @@
 export default {
   data() {
     return {
+      isWX: false,
       mobile: '',
       code: '',
       submitLoading: false,
@@ -43,6 +44,15 @@ export default {
       interval: 10,
       timmer: null
     }
+  },
+  onLoad() {
+    Object.assign(this.$data, this.$options.data())
+    if (mpvuePlatform === 'wx') {
+      this.isWX = true
+    }
+  },
+  onUnload() {
+    clearTimeout(this.timmer)
   },
   beforeDestroy() {
     clearTimeout(this.timmer)
@@ -111,16 +121,25 @@ export default {
       this.$emit('get-phone', d)
     },
     copyWxCode() {
-      mpvue.setClipboardData({
-        data: '15210018545',
-        success(res) {
-          // mpvue.getClipboardData({
-          //   success(res) {
-          //     console.log(res.data) // data
-          //   }
-          // })
-        }
-      })
+      if (mpvuePlatform === 'wx') {
+        mpvue.setClipboardData({
+          data: '15210018545',
+          success(res) {
+            // mpvue.getClipboardData({
+            //   success(res) {
+            //     console.log(res.data) // data
+            //   }
+            // })
+          }
+        })
+      } else if (mpvuePlatform === 'my') {
+        mpvue.setClipboard({
+          text: '15210018545',
+          success(res) {
+            // console.log(res)
+          }
+        })
+      }
     }
   }
 }

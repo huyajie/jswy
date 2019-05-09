@@ -23,7 +23,7 @@ export default {
   },
   data() {
     return {
-      checkType: true,
+      checkType: true, //默认页面展示 选择登录方式的按钮
       bannerList: ['http://m.51baomu.cn/tupian/jzxiaochengxu/xbanner.png'],
       query: {
         type: 'back',
@@ -40,6 +40,10 @@ export default {
     if (this.query.redirect) {
       this.query.redirect = decodeURIComponent(this.query.redirect)
     }
+    //不是微信的时候 直接调用手机号登录
+    if (mpvuePlatform !== 'wx') {
+      this.checkType = false
+    }
   },
   methods: {
     //切换页面
@@ -48,9 +52,17 @@ export default {
       console.log(1)
     },
     //手机号密码登录成功回调
-    onPhoneLogin(d) {
-      console.log(d)
-      this.loginSuccess()
+    onPhoneLogin(res) {
+      console.log(res)
+      if (res.ret === 0) {
+        Auth.setInfo(res.data)
+        Auth.setToken(res.data.token)
+        this.loginSuccess()
+      } else if (res.msg) {
+        this.$utils.showError(res.msg)
+      } else {
+        this.$utils.showError('网络可能出现问题了，请稍后重试')
+      }
     },
     //获取你微信手机号 加密信息
     getPhone(d) {

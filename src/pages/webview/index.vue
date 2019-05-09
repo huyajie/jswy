@@ -1,6 +1,8 @@
 <template>
   <div>
-    <web-view :src="srcWebView"></web-view>
+    <div v-if="srcWebView">
+      <web-view :src="srcWebView"></web-view>
+    </div>
   </div>
 </template>
 

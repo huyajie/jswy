@@ -49,12 +49,6 @@
         "pagePath": "pages/list/main",
         "icon": "static/tabs/tab02.png",
         "activeIcon": "static/tabs/tab02_s.png"
-      },
-      {
-        "name": "我",
-        "pagePath": "pages/logs/main",
-        "icon": "static/tabs/tab03.png",
-        "activeIcon": "static/tabs/tab03_s.png"
       }
     ],
     "position": "bottom"

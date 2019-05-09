@@ -27,6 +27,7 @@ function all(opt) {
   let wholeUrl = `${config.domain}${opt.url}`
   let authHeader = opt.header || { 'Content-Type': 'application/json;charset=UTF-8' }
   let auth = Auth.getToken()
+  //console.log(auth)
   if (auth) authHeader.authorization = `Token ${auth}`
   if (!opt.hideLoading) {
     showLoaing()
@@ -35,6 +36,7 @@ function all(opt) {
     mpvue.request({
       url: wholeUrl,
       header: authHeader,
+      headers: authHeader,
       data: opt.data,
       method: opt.method,
       success: res => {

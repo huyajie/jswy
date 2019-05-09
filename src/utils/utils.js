@@ -33,7 +33,8 @@ function getStorageSync(key) {
   let r = ''
   if (mpvuePlatform === 'my') {
     try {
-      r = mpvue.getStorageSync({ key })
+      r = mpvue.getStorageSync({ key: key }).data
+      // console.log(r)
     } catch (e) {}
   } else {
     try {
