@@ -25,6 +25,7 @@ function post(url, data, header, hideLoading) {
 
 function all(opt) {
   let wholeUrl = `${config.domain}${opt.url}`
+  let headerName = mpvuePlatform === 'my' ? 'headers' : 'header'
   let authHeader = opt.header || { 'Content-Type': 'application/json;charset=UTF-8' }
   let auth = Auth.getToken()
   //console.log(auth)
@@ -35,8 +36,8 @@ function all(opt) {
   return new Promise((resolve, reject) => {
     mpvue.request({
       url: wholeUrl,
-      header: authHeader,
-      headers: authHeader,
+      [headerName]: authHeader,
+      // headers: authHeader,
       data: opt.data,
       method: opt.method,
       success: res => {
