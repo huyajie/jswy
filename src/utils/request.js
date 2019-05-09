@@ -1,5 +1,6 @@
 import Auth from './auth'
-
+const headerName = mpvuePlatform === 'my' ? 'headers' : 'header'
+console.log(headerName)
 let requestTimmer = null
 function showLoaing() {
   clearTimeout(requestTimmer)
@@ -25,11 +26,12 @@ function post(url, data, header, hideLoading) {
 
 function all(opt) {
   let wholeUrl = `${config.domain}${opt.url}`
-  let headerName = mpvuePlatform === 'my' ? 'headers' : 'header'
   let authHeader = opt.header || { 'Content-Type': 'application/json;charset=UTF-8' }
   let auth = Auth.getToken()
   //console.log(auth)
-  if (auth) authHeader.authorization = `Token ${auth}`
+  if (auth) {
+    authHeader.authorization = `Token ${auth}`
+  }
   if (!opt.hideLoading) {
     showLoaing()
   }

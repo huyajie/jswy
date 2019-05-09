@@ -5,16 +5,16 @@
         <img class="img" src="../../../assets/images/login/wechat2.png" alt>
         &nbsp;微信用户快捷登录
       </button>
-      <!-- <div class="hr">
+      <div class="hr">
         <span class="span">或者</span>
-      </div>-->
+      </div>
     </div>
-    <!-- <div class="phone">
+    <div class="phone">
       <button class="btn-phone mobile" @click="byTel">
         <img class="img" src="../../../assets/images/login/shouji.png" alt>
         &nbsp;手机号码登录/注册
       </button>
-    </div>-->
+    </div>
   </div>
 </template>
 
