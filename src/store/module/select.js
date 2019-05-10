@@ -38,7 +38,7 @@ const select = {
       },
       {
         ID: 5,
-        DISPLAY: '小时工',
+        DISPLAY: '临时小时工',
         LOV: '服务员类型',
         PARENT_LOV: null,
         PARENT_RETURNED: null,

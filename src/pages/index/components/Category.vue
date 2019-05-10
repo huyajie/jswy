@@ -18,7 +18,7 @@ export default {
         { text: '月嫂', query: '月嫂', path: 'list', icon: require('@/assets/images/home/3.png') },
         { text: '育儿嫂', query: '育儿嫂', path: 'list', icon: require('@/assets/images/home/4.png') },
         { text: '长期小时工', query: '小时工', path: 'list', icon: require('@/assets/images/home/5.png') },
-        { text: '临时小时工', query: '小时工', path: 'detail', icon: require('@/assets/images/home/6.png') },
+        { text: '临时小时工', query: '临时小时工', path: 'detail', icon: require('@/assets/images/home/6.png') },
         { text: '护工', query: '护工', path: 'detail', icon: require('@/assets/images/home/7.png') },
         { text: '菲佣', query: '菲佣', path: 'feiyong', icon: require('@/assets/images/home/8.png') }
       ]

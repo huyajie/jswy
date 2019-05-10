@@ -76,7 +76,6 @@ export default {
         // lianxidianhua: '18612191607'
       }
       this.$refs.detail.submitLoading = true
-
       this.$http.post('yuyueayi', parm).then(
         res => {
           this.$refs.detail.submitLoading = false
