@@ -1,6 +1,6 @@
 <template>
   <div>
-    <picker :disabled="disabled" @change="pcikerChange" class="input-block" :value="index" :range="ranges">
+    <picker :disabled="disabled" mode="selector" @change="pcikerChange" class="input-block" :value="index" :range="ranges">
       <div class="pick-view">
         {{c_value}}
         <img class="picker-icon-arrew" src="../../../assets/images/yuyue/yyxiala.png" alt>
@@ -24,7 +24,9 @@ export default {
     }
   },
   props: {
-    value: {},
+    value: {
+      default: ''
+    },
     disabled: {
       default: false
     },
@@ -72,7 +74,8 @@ export default {
       if (this.range.length) {
         // console.log(this.ranges[this.index])
         this.$emit('input', this.ranges[this.index])
-        this.$emit('change', this.range[this.index])
+        this.$emit('change', this.ranges[this.index])
+        // console.log(this.ranges[this.index])
       }
     }
   },
