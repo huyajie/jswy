@@ -4,7 +4,7 @@
 
 ## Build Setup
 
-``` bash
+```bash
 # 初始化项目
 vue init mpvue/mpvue-quickstart myproject
 cd myproject
@@ -32,6 +32,10 @@ npm build:my
 
 # 生成 bundle 分析报告
 npm run build --report
+
+# 百度promise bug install 之后 需要修改 babel-core js
+链接
+(https://github.com/Meituan-Dianping/mpvue/issues/1352)
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
