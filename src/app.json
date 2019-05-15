@@ -15,7 +15,9 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#0ab727",
     "navigationBarTitleText": "无忧家政",
-    "navigationBarTextStyle": "white"
+    "defaultTitle": "无忧家政",
+    "navigationBarTextStyle": "white",
+    "titleBarColor": "#0ab727"
   },
   "tabBar": {
     "color": "#555",
