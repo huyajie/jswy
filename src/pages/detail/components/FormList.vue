@@ -18,7 +18,7 @@
         </div>
         <div class="form-label">服务类型:</div>
         <div class="form-value">
-          <picker-select :disabled="true" @change="changeEvent" :range="serviceType" :prop="{key:'DISPLAY'}" v-model="parms.fuwuleixing"></picker-select>
+          <picker-select :disabled="serviceDisabled" @change="changeEvent" :range="serviceType" :prop="{key:'DISPLAY'}" v-model="parms.fuwuleixing"></picker-select>
         </div>
       </div>
     </div>
@@ -132,6 +132,7 @@ import dayjs from 'dayjs'
 export default {
   data() {
     return {
+      serviceDisabled: false, //控制服务类型是否可点击
       isSubmit: false, //提交按钮 loading  防止连点
       // currentService:'',//当前服务
       hourTime: 2, //小时工服务时长
@@ -178,6 +179,7 @@ export default {
     // console.log($mp)
     if ($mp.query.type) {
       this.parms.fuwuleixing = $mp.query.type
+      this.serviceDisabled = true
     }
     this.$store.dispatch('GET_CITY')
   },

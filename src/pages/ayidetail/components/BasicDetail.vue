@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="submit-cont">
-      <button class="btn" :class="submitLoading?'disabled' : ''" @click="submit" :disabled="submitLoading" :loading="submitLoading">立即预约</button>
+      <div class="tel" @click="goYuyue">
+        <img src="../../../assets/images/detail/tel.jpg" class="img-tel" alt>留电咨询
+      </div>
+      <button class="btn" :class="submitLoading?'disabled' : ''" @click="submit" :disabled="submitLoading" :loading="submitLoading">预约此阿姨</button>
     </div>
     <div class="ayi-info">
       <div class="flex-box">
@@ -106,6 +109,11 @@ export default {
     },
     submit() {
       this.$emit('submit')
+    },
+    goYuyue() {
+      let url = `/pages/detail/main`
+      // console.log(url)
+      this.$router.navigateTo({ url })
     }
   },
   computed: {
@@ -178,13 +186,33 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  height: 90rpx;
+  line-height: 90rpx;
+  display: flex;
+  .tel {
+    flex: 2;
+    height: 90rpx;
+    line-height: 90rpx;
+    background-color: #f3f3f3;
+    font-size: 35rpx;
+    text-align: center;
+    color: #358afe;
+    .img-tel {
+      margin-right: 20rpx;
+      width: 50rpx;
+      height: 48rpx;
+      vertical-align: middle;
+    }
+  }
   .btn {
+    flex: 3;
     height: 90rpx;
     line-height: 90rpx;
     background: $primary;
     color: #fff;
-    font-size: 30rpx;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    font-size: 35rpx;
+    border-radius: 0;
   }
 }
 .ayi-info {
