@@ -114,7 +114,7 @@
         </div>
       </div>
     </div>
-    <div class="tips">
+    <div class="tips" v-if="currentService === 'xiaoshigong'  || currentService === 'hugong'">
       说明：各城市价格不同，查看
       <text class="link" @click="goCharge">各城市收费标准</text>
     </div>
@@ -390,6 +390,8 @@ $formItemHeight: 88rpx;
     color: #fff;
     border-radius: 8rpx;
     font-size: 30rpx;
+    height: 90rpx;
+    line-height: 90rpx;
     &.disabed {
       background-color: #999;
     }
