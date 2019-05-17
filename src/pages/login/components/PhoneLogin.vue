@@ -18,7 +18,8 @@
     </div>
     <div class="form-submit">
       <div class="wx-code">
-        <div class="copy" @click="copyWxCode">一键复制</div>收不到验证码？请加微信 15210018545
+        <div class="copy" @click="copyWxCode">一键复制</div>
+        收不到验证码？请加微信 {{wxTel}}
       </div>
       <button class="submit" :class="submitLoading?'disabled' : ''" @click="submit" :disabled="submitLoading" :loading="submitLoading">确定</button>
     </div>
@@ -35,6 +36,7 @@
 export default {
   data() {
     return {
+      wxTel: '15911047630',
       isWX: false,
       mobile: '',
       code: '',
@@ -121,22 +123,22 @@ export default {
       this.$emit('get-phone', d)
     },
     copyWxCode() {
-      if (mpvuePlatform === 'wx') {
+      if (mpvuePlatform === 'my') {
+        mpvue.setClipboard({
+          text: this.this.wxTel,
+          success(res) {
+            // console.log(res)
+          }
+        })
+      } else {
         mpvue.setClipboardData({
-          data: '15210018545',
+          data: this.wxTel,
           success(res) {
             // mpvue.getClipboardData({
             //   success(res) {
             //     console.log(res.data) // data
             //   }
             // })
-          }
-        })
-      } else if (mpvuePlatform === 'my') {
-        mpvue.setClipboard({
-          text: '15210018545',
-          success(res) {
-            // console.log(res)
           }
         })
       }

@@ -61,7 +61,7 @@ export default {
       } else if (res.msg) {
         this.$utils.showError(res.msg)
       } else {
-        this.$utils.showError('网络可能出现问题了，请稍后重试')
+        this.$utils.showError('数据异常，请稍后重试')
       }
     },
     //获取你微信手机号 加密信息
@@ -88,7 +88,7 @@ export default {
         } else if (res.msg) {
           this.$utils.showError(res.msg)
         } else {
-          this.$utils.showError('网络可能出现问题了，请稍后重试')
+          this.$utils.showError('数据异常，请稍后重试')
         }
       })
     },
