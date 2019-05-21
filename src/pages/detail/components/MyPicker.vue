@@ -2,7 +2,7 @@
   <div>
     <div class="picker-title" @click="showModal = true">{{currentVal}}</div>
 
-    <div class="picker-modal" v-if="showModal">
+    <div class="picker-modal" v-show="showModal">
       <div class="picker-mask" @click="cancelEvent" :class="showModal ? 'datepicker-animation-fade-in':''"></div>
       <div class="picker-cont" :class="showModal ? 'datepicker-animation-slide-up':''">
         <div class="picker-header">
@@ -10,7 +10,7 @@
           <div class="picker-header-title"></div>
           <div class="picker-header-btn confirm" @click="confirmEvent">确定</div>
         </div>
-        <picker-view :value="c_value" @change="onChange">
+        <picker-view :value="c_value" @change="onChange" :class="isBaiDu ? 'height' :''">
           <picker-view-column v-for="(item,index) in c_range" :key="index">
             <div v-for="(subItem,subIndex) in item" :index="subIndex" :key="subItem">{{subItem}}</div>
           </picker-view-column>
@@ -33,7 +33,8 @@ export default {
   data() {
     return {
       showModal: false,
-      pickerEvent: ''
+      pickerEvent: '',
+      isBaiDu: true
     }
   },
   computed: {
@@ -60,9 +61,11 @@ export default {
   },
   props: {
     value: {},
-    range: {}
+    range: {
+      default: []
+    }
   },
-  mounted() {
+  onLoad() {
     console.log(this.range)
   },
   methods: {
@@ -103,6 +106,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.height {
+  height: 500rpx;
+}
 .picker-title {
   display: block;
   height: 100%;

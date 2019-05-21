@@ -1,6 +1,6 @@
 <template>
   <div>
-    <my-picker mode="multiSelector" @change="pcikerChange" @cancel="cancelEvent" :value="dateTime" @columnchange="changeDateTimeColumn($event,'my')" :range="dateTimeArray" v-if="plat==='my'"></my-picker>
+    <my-picker mode="multiSelector" @change="pcikerChange" @cancel="cancelEvent" :value="dateTime" @columnchange="changeDateTimeColumn($event,'my')" :range="dateTimeArray" v-if="plat!=='wx'"></my-picker>
     <picker v-else @change="pcikerChange" @cancel="cancelEvent" @columnchange="changeDateTimeColumn" :value="dateTime" :range="dateTimeArray" class="input-block" mode="multiSelector">
       <div class="pick-view">
         {{currentVal}}
@@ -18,6 +18,7 @@ export default {
   data() {
     return {
       plat: '',
+      platform: '',
       dateTime: [],
       dateTimeSel: [],
       dateTimeArray: [],
@@ -30,6 +31,11 @@ export default {
     MyPicker
   },
   computed: {
+    isBaiDu() {
+      if (this.platform === 'android' && this.plat === 'swan') {
+        return true
+      }
+    },
     currentVal() {
       let arr = []
       let arr2 = []
@@ -70,8 +76,16 @@ export default {
   },
   created() {
     this.plat = mpvuePlatform
+    try {
+      const result = mpvue.getSystemInfoSync()
+      this.platform = result.platform
+      // console.log(this.platform)
+      console.log('getSystemInfoSync success', result)
+    } catch (e) {
+      console.log('getSystemInfoSync fail', e)
+    }
   },
-  mounted() {
+  onLoad() {
     // this.setDefault()
     var obj = dateTimePicker.dateTimePicker(dayjs().year(), dayjs().year() + 1)
     obj.dateTime.pop()
@@ -88,6 +102,12 @@ export default {
     } else {
       obj.dateTime[3] -= 8
     }
+
+    // if (mpvuePlatform === 'swan') {
+    //   obj.dateTime.shift()
+    //   obj.dateTimeArray.shift()
+    // }
+
     this.dateTime = obj.dateTime
     this.dateTimeSel = [...obj.dateTime]
     this.dateTimeArray = obj.dateTimeArray
