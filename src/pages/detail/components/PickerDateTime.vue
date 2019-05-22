@@ -1,6 +1,14 @@
 <template>
   <div>
-    <my-picker mode="multiSelector" @change="pcikerChange" @cancel="cancelEvent" :value="dateTime" @columnchange="changeDateTimeColumn($event,'my')" :range="dateTimeArray" v-if="plat!=='wx'"></my-picker>
+    <my-picker
+      mode="multiSelector"
+      @change="pcikerChange"
+      @cancel="cancelEvent"
+      :value="dateTime"
+      @columnchange="changeDateTimeColumn($event,'my')"
+      :range="dateTimeArray"
+      v-if="plat==='my' || isBaiDu"
+    ></my-picker>
     <picker v-else @change="pcikerChange" @cancel="cancelEvent" @columnchange="changeDateTimeColumn" :value="dateTime" :range="dateTimeArray" class="input-block" mode="multiSelector">
       <div class="pick-view">
         {{currentVal}}

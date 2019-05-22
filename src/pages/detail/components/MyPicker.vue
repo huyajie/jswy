@@ -11,8 +11,21 @@
           <div class="picker-header-btn confirm" @click="confirmEvent">确定</div>
         </div>
         <picker-view :value="c_value" @change="onChange" :class="isBaiDu ? 'height' :''">
-          <picker-view-column v-for="(item,index) in c_range" :key="index">
-            <div v-for="(subItem,subIndex) in item" :index="subIndex" :key="subItem">{{subItem}}</div>
+          <!-- v-for="(item,index) in c_range" :key="index" -->
+          <picker-view-column>
+            <view v-for="(subItem,subIndex) in c_range[0]" :index="subIndex" :key="subItem">{{subItem}}</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view v-for="(subItem,subIndex) in c_range[1]" :index="subIndex" :key="subItem">{{subItem}}</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view v-for="(subItem,subIndex) in c_range[2]" :index="subIndex" :key="subItem">{{subItem}}</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view v-for="(subItem,subIndex) in c_range[3]" :index="subIndex" :key="subItem">{{subItem}}</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view v-for="(subItem,subIndex) in c_range[4]" :index="subIndex" :key="subItem">{{subItem}}</view>
           </picker-view-column>
           <!-- <picker-view-column>
             <view>2013</view>
