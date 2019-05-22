@@ -2,7 +2,7 @@
   <div>
     <div class="picker-title" @click="showModal = true">{{currentVal}}</div>
 
-    <div class="picker-modal" v-show="showModal">
+    <div class="picker-modal" v-if="showModal">
       <div class="picker-mask" @click="cancelEvent" :class="showModal ? 'datepicker-animation-fade-in':''"></div>
       <div class="picker-cont" :class="showModal ? 'datepicker-animation-slide-up':''">
         <div class="picker-header">
@@ -34,7 +34,7 @@ export default {
     return {
       showModal: false,
       pickerEvent: '',
-      isBaiDu: true
+      isBaiDu: mpvuePlatform === 'swan' ? true : false
     }
   },
   computed: {

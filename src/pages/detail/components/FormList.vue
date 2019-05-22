@@ -40,7 +40,7 @@
           <div class="form-icon">
             <img class="img" style="margin-top:-8rpx;" src="../../../assets/images/yuyue/yyicon03.png" alt>
           </div>
-          <div class="form-label">服务时长:</div>
+          <div class="form-label">结束时间:</div>
           <div class="form-value">
             <picker-date ref="endDate" :start="endBeginTime" :day="serviceTime" v-model="parms.jieshushijian"></picker-date>
           </div>
