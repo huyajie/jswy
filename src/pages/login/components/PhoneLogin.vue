@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="form-submit">
-      <div class="wx-code">
+      <div class="wx-code" v-if="isWX">
         <div class="copy" @click="copyWxCode">一键复制</div>
         收不到验证码？请加微信 {{wxTel}}
       </div>
