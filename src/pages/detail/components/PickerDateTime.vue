@@ -1,14 +1,7 @@
 <template>
   <div>
-    <my-picker
-      mode="multiSelector"
-      @change="pcikerChange"
-      @cancel="cancelEvent"
-      :value="dateTime"
-      @columnchange="changeDateTimeColumn($event,'my')"
-      :range="dateTimeArray"
-      v-if="plat==='my' || isBaiDu"
-    ></my-picker>
+    <my-picker mode="multiSelector" @change="pcikerChange" @cancel="cancelEvent" :value="dateTime" @columnchange="changeDateTimeColumn($event,'my')" :range="dateTimeArray" v-if="plat==='my' "></my-picker>
+    <bd-picker :value="dateTime" :range="dateTimeArray" @change="bdPickerEvent" v-else-if="isBaiDu"></bd-picker>
     <picker v-else @change="pcikerChange" @cancel="cancelEvent" @columnchange="changeDateTimeColumn" :value="dateTime" :range="dateTimeArray" class="input-block" mode="multiSelector">
       <div class="pick-view">
         {{currentVal}}
@@ -22,6 +15,7 @@
 import dayjs from 'dayjs'
 import dateTimePicker from '@/utils/datePicker'
 import MyPicker from './MyPicker'
+import BdPicker from './BdPicker'
 export default {
   data() {
     return {
@@ -36,7 +30,8 @@ export default {
     }
   },
   components: {
-    MyPicker
+    MyPicker,
+    BdPicker
   },
   computed: {
     isBaiDu() {
@@ -128,6 +123,12 @@ export default {
       }
       this.emitEvent()
     },
+    bdPickerEvent(o) {
+      console.log(o)
+      if (o.type) {
+        this[o.type](o.d, 'swan')
+      }
+    },
     pcikerChange(e) {
       // this.date = e.mp.detail.value
       // console.log(e.mp.detail.value)
@@ -144,7 +145,7 @@ export default {
     changeDateTimeColumn(e, plat) {
       // console.log(plat)
       let dateArr = this.dateTimeArray
-      if (plat == 'my') {
+      if (plat == 'my' || plat == 'swan') {
         this.dateTime = e.mp.detail.value
       } else {
         this.dateTime[e.mp.detail.column] = e.mp.detail.value
