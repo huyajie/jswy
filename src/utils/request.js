@@ -26,7 +26,7 @@ function post(url, data, header, hideLoading) {
 
 function all(opt) {
   let wholeUrl = `${config.domain}${opt.url}`
-  let authHeader = opt.header || { 'Content-Type': 'application/json;charset=UTF-8' }
+  let authHeader = opt.header || {}
   let auth = Auth.getToken()
   //console.log(auth)
   if (auth) {
