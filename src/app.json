@@ -9,7 +9,11 @@
     "pages/counter/main",
     "pages/charge/main",
     "pages/webview/main",
-    "pages/login/main"
+    "pages/login/main",
+    "pages/user/main",
+    "pages/invite/main",
+    "pages/inviteAnonymous/main",
+    "pages/inviteRealname/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -36,6 +40,12 @@
         "pagePath": "pages/list/main",
         "iconPath": "static/tabs/tab02.png",
         "selectedIconPath": "static/tabs/tab02_s.png"
+      },
+      {
+        "text": "我",
+        "pagePath": "pages/user/main",
+        "iconPath": "static/tabs/tab03.png",
+        "selectedIconPath": "static/tabs/tab03_s.png"
       }
     ],
 

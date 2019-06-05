@@ -21,3 +21,21 @@
     border-top-color: #fff;
   }
 }
+@mixin arrow-right($size) {
+  height: 0;
+  width: 0;
+  display: inline-block;
+  position: relative;
+  border: $size solid transparent;
+  border-left-color: #b8b8b8;
+  box-sizing: border-box;
+  &::after {
+    content: ' ';
+    display: inline-block;
+    position: absolute;
+    left: -($size * 1.2);
+    top: -$size;
+    border: $size solid transparent;
+    border-left-color: #fff;
+  }
+}
