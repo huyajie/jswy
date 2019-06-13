@@ -2,24 +2,24 @@
   <div>
     <div class="user">
       <div class="img-box">
-        <img class="img" src="../../../assets/images/list/default_head.jpg" alt>
+        <img class="img" :src=" userInfo.photo ? userInfo.photo :'../../../assets/images/list/default_head.jpg'" alt>
       </div>
       <div class="info">
         <div>
-          <p class="name">爱吃虾的小黄鸡</p>
-          <p class="tel">13211112222</p>
+          <p class="name">{{userInfo.nikename}}</p>
+          <p class="tel">{{userInfo.mobile}}</p>
         </div>
       </div>
     </div>
     <div class="list">
-      <div class="item">
+      <div class="item" @click="goNext('invite')">
         <div class="icon-box">
           <img class="img" mode="aspectFit" src="../../../assets/images/invite/wo_icon01.png" alt>
         </div>
         <div class="text">邀请好友领红包</div>
         <div class="arrew"></div>
       </div>
-      <div class="item">
+      <div class="item" @click="goNext('feedback')">
         <div class="icon-box">
           <img class="img" mode="aspectFit" src="../../../assets/images/invite/wo_icon02.png" alt>
         </div>
@@ -31,7 +31,27 @@
 </template>
 
 <script>
-export default {}
+import Auth from '@/utils/auth.js'
+
+export default {
+  props: {
+    userInfo: {
+      type: Object,
+      default: {}
+    }
+  },
+  methods: {
+    goNext(link) {
+      if (!Auth.checkLogin()) {
+        return false
+      }
+      let url = `/pages/${link}/main`
+      this.$router.navigateTo({
+        url
+      })
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/minxins.scss';

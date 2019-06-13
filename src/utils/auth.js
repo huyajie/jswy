@@ -3,6 +3,7 @@ import { navigateTo, redirectTo } from './route.js'
 import dayjs from 'dayjs'
 const TOKEN = 'TOKEN'
 const INFO = 'USER_INFO'
+const WX_INFO = 'WX_USER_INFO'
 const Auth = {
   setToken(val) {
     setStorageSync(TOKEN, val)
@@ -12,6 +13,16 @@ const Auth = {
   },
   setInfo(val) {
     setStorageSync(INFO, val)
+  },
+  setWxInfo(val) {
+    setStorageSync(WX_INFO, val)
+  },
+  getWxInfo(type) {
+    let userInfo = getStorageSync(WX_INFO)
+    if (type && userInfo) {
+      return userInfo[type]
+    }
+    return userInfo
   },
   getInfo(type) {
     let userInfo = getStorageSync(INFO)

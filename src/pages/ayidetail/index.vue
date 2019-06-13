@@ -56,6 +56,7 @@ export default {
       })
     }
   },
+  onShareAppMessage() {},
   onUnload() {
     // console.log(dataArr)
     dataArr.pop()

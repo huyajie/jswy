@@ -93,13 +93,23 @@ export default {
       })
     },
     loginSuccess() {
+      let _this = this
       if (this.query.type === 'back') {
         this.$router.navigateBack({
           delta: 1
         })
       } else if (this.query.type === 'redirect') {
+        console.log(this.query.redirect)
         this.$router.redirectTo({
-          url: this.query.redirect
+          url: this.query.redirect,
+          fail(e) {
+            if (e.errMsg == 'redirectTo:fail can not redirectTo a tabbar page') {
+              _this.$router.switchTab({
+                url: _this.query.redirect
+              })
+            }
+            console.log(e)
+          }
         })
       } else if (this.query.type === 'navigate') {
         this.$router.navigateTo({

@@ -13,7 +13,10 @@
     "pages/user/main",
     "pages/invite/main",
     "pages/inviteAnonymous/main",
-    "pages/inviteRealname/main"
+    "pages/inviteRealname/main",
+    "pages/feedback/main",
+    "pages/gifts/main",
+    "pages/giftState/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

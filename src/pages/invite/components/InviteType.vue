@@ -1,10 +1,10 @@
 <template>
   <div class="type-list">
-    <div class="item">
+    <div class="item" @click="goNext('inviteRealname')">
       <img class="img" src="../../../assets/images/invite/yaoqing_02.png" alt>
       <p class="text">实名邀请</p>
     </div>
-    <div class="item">
+    <div class="item" @click="goNext('inviteAnonymous')">
       <img class="img" src="../../../assets/images/invite/yaoqing_01.png" alt>
       <p class="text">匿名推荐</p>
     </div>
@@ -12,7 +12,16 @@
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    goNext(link) {
+      let url = `/pages/${link}/main`
+      this.$router.navigateTo({
+        url
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

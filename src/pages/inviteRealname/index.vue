@@ -38,7 +38,7 @@
             </p>
           </div>
           <div class="flex-center">
-            <button class="btn">
+            <button class="btn" open-type="share">
               <img class="icon icon-wx" src="../../assets/images/invite/yaoqing_05.png" alt>
               马上邀请好友
             </button>
@@ -68,7 +68,14 @@
 
 <script>
 export default {
-  components: {}
+  components: {},
+  onShareAppMessage: function(res) {
+    return {
+      title: '推荐你来这儿找家政服务，服务很好，给您申请了200元家政红包，找家政服务更便宜，快领！',
+      path: '/pages/gifts/main',
+      imageUrl: require('../../assets/images/invite/share.png')
+    }
+  }
 }
 </script>
 
