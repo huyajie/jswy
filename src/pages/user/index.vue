@@ -1,6 +1,6 @@
 <template>
   <div>
-    <user-info :user-info="userInfo"></user-info>
+    <user-info :user-info="userInfo" :is-login="isLogin"></user-info>
     <model-authorize v-if="showModal" @getinfo="getUserInfo"></model-authorize>
   </div>
 </template>
@@ -15,7 +15,9 @@ export default {
     return {
       showModal: false,
       hasInfo: false,
-      userInfo: {}
+      userInfo: {},
+      isLogin: false,
+      getInfoSucess: false
     }
   },
   onShow() {
@@ -23,9 +25,13 @@ export default {
     // if (!Auth.getWxInfo()) {
     //   this.showModal = true
     // }
-    if (Auth.checkLogin()) {
+    this.isLogin = Auth.isLogin()
+    if (this.isLogin && !this.getInfoSucess) {
       this.getSeverInfo()
     }
+  },
+  onLoad() {
+    Auth.checkLogin()
   },
   methods: {
     setInfo() {
@@ -52,7 +58,7 @@ export default {
           this.getSeverInfo()
         }
       })
-      console.log(d)
+      // console.log(d)
     },
     getSeverInfo() {
       let mobile = Auth.getInfo('shoujihao')
@@ -61,10 +67,12 @@ export default {
         if (res.ret === 0 && res.data.userinfo) {
           let tmpObj = res.data.userinfo[0]
           tmpObj.mobile = mobile
-          this.userInfo = tmpObj
-          console.log(!this.userInfo.photo)
-          if (!this.userInfo.photo) {
+          // console.log(!this.userInfo.photo)
+          if (!tmpObj.photo) {
             this.setInfo()
+          } else {
+            this.userInfo = tmpObj
+            this.getInfoSucess = true
           }
         }
       })

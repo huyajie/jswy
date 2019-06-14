@@ -5,10 +5,11 @@
         <img class="img" :src=" userInfo.photo ? userInfo.photo :'../../../assets/images/list/default_head.jpg'" alt>
       </div>
       <div class="info">
-        <div>
+        <div v-if="isLogin ===true">
           <p class="name">{{userInfo.nikename}}</p>
           <p class="tel">{{userInfo.mobile}}</p>
         </div>
+        <div v-if="isLogin ===false" class="login-btn" @click="goNext">登录</div>
       </div>
     </div>
     <div class="list">
@@ -38,6 +39,10 @@ export default {
     userInfo: {
       type: Object,
       default: {}
+    },
+    isLogin: {
+      type: Boolean,
+      default: ''
     }
   },
   methods: {
@@ -54,6 +59,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '@/assets/scss/variables.scss';
 @import '@/assets/scss/minxins.scss';
 
 .list {
@@ -111,6 +117,9 @@ export default {
     color: #333;
     .tel {
       font-size: 32rpx;
+    }
+    .login-btn {
+      color: $primary;
     }
   }
 }

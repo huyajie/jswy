@@ -35,13 +35,20 @@ const Auth = {
     removeStorageSync(TOKEN)
     removeStorageSync(INFO)
   },
-  checkLogin(type) {
+  isLogin() {
     let expiry = this.getInfo('expiry')
+    if (expiry && dayjs().isBefore(dayjs.unix(expiry))) {
+      return true
+    } else {
+      return false
+    }
+  },
+  checkLogin(type) {
     // console.log(dayjs.unix(expiry).format('YYYY-MM-DD HH:mm:ss'))
     // console.log(page)
     // console.log()
 
-    if (expiry && dayjs().isBefore(dayjs.unix(expiry))) {
+    if (this.isLogin()) {
       return true
     } else {
       this.remove()
