@@ -2,7 +2,7 @@
   <div>
     <div class="user">
       <div class="img-box">
-        <img class="img" :src=" userInfo.photo ? userInfo.photo :'../../../assets/images/list/default_head.jpg'" alt>
+        <img class="img" :src=" userInfo.photo ? userInfo.photo : defaultHeader" alt>
       </div>
       <div class="info">
         <div v-if="isLogin ===true">
@@ -35,6 +35,11 @@
 import Auth from '@/utils/auth.js'
 
 export default {
+  data() {
+    return {
+      defaultHeader: require('../../../assets/images/list/default_head.jpg')
+    }
+  },
   props: {
     userInfo: {
       type: Object,
