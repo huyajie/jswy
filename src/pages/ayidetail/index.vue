@@ -56,7 +56,16 @@ export default {
       })
     }
   },
-  onShareAppMessage() {},
+  onShareAppMessage(res) {
+    if (res.from === 'button') {
+      console.log(res)
+      return {
+        title: '推荐你来这儿找家政服务，服务很好，给您申请了200元家政红包，找家政服务更便宜，快领！',
+        path: '/pages/gifts/main',
+        imageUrl: require('../../assets/images/invite/share.png')
+      }
+    }
+  },
   onUnload() {
     // console.log(dataArr)
     dataArr.pop()

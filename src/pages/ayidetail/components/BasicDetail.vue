@@ -7,6 +7,10 @@
       <button class="btn" :class="submitLoading?'disabled' : ''" @click="submit" :disabled="submitLoading" :loading="submitLoading">预约此阿姨</button>
     </div>
     <div class="ayi-info">
+      <div class="recommend-tag" @click="recommendEvent">
+        推荐有奖
+        <span class="icon-ques">?</span>
+      </div>
       <div class="flex-box">
         <div class="pic">
           <img class="img" :src="details.photo ? details.photo : defaultHead" alt>
@@ -86,21 +90,38 @@
         </div>
       </div>
     </div>
+    <div class="recommend-pop" v-if="showModal" @touchmove.stop="move">
+      <div class="mask"></div>
+      <div class="cont">
+        <button class="share-btn" open-type="share"></button>
+        <img mode="aspectFit" src="../../../assets/images/invite/tuijiantc01.png" alt class="img">
+        <img mode="aspectFit" src="../../../assets/images/invite/tuijiantc01_gb.png" alt class="close" @click="showModal=false">
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import dayjs from 'dayjs'
+import Auth from '@/utils/auth.js'
+
 const defaultHead = require('@/assets/images/list/default_head.jpg')
 
 export default {
   data() {
     return {
       submitLoading: false,
-      defaultHead: defaultHead
+      defaultHead: defaultHead,
+      showModal: false
     }
   },
   methods: {
+    move() {},
+    recommendEvent() {
+      if (Auth.checkLogin()) {
+        this.showModal = true
+      }
+    },
     previewImage(link) {
       this.$utils.previewImage({
         current: link, // 当前显示图片的http链接
@@ -180,6 +201,47 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/variables.scss';
 @import '@/assets/scss/minxins.scss';
+.recommend-pop {
+  .mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 99;
+    background: rgba(0, 0, 0, 0.7);
+  }
+  .cont {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 724rpx;
+    height: 712rpx;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    .share-btn {
+      position: absolute;
+      width: 370rpx;
+      height: 85rpx;
+      background-color: transparent;
+      bottom: 98rpx;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+    .img {
+      width: 724rpx;
+      height: 712rpx;
+    }
+    .close {
+      width: 90rpx;
+      height: 90rpx;
+      position: absolute;
+      right: 20rpx;
+      top: -100rpx;
+    }
+  }
+}
+
 .submit-cont {
   position: fixed;
   z-index: 99;
@@ -218,6 +280,24 @@ export default {
 .ayi-info {
   background-color: #fff;
   padding-left: 30rpx;
+  position: relative;
+  .recommend-tag {
+    position: absolute;
+    top: 30rpx;
+    right: 30rpx;
+    line-height: 32rpx;
+    color: #ff9000;
+    font-size: 24rpx;
+    .icon-ques {
+      display: inline-block;
+      width: 32rpx;
+      height: 32rpx;
+      background-color: #ff9000;
+      color: #fff;
+      text-align: center;
+      border-radius: 50%;
+    }
+  }
   .flex-box {
     display: flex;
     border-bottom: 1rpx solid #cdcdcd;
