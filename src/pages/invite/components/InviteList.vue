@@ -9,7 +9,20 @@
         <div class="th">状态</div>
         <div class="th">已奖励金额</div>
       </div>
-      <div class="tr">
+      <div class="tr" v-for="item in list" :key="item.id">
+        <div class="td">{{item.guphone}}</div>
+        <template v-if="item.ticheng==null">
+          <div class="td">未签约</div>
+          <div class="td">0</div>
+        </template>
+        <template v-else>
+          <div class="td">已签约</div>
+          <div class="td">
+            <span class="red">{{item.ticheng}}</span>
+          </div>
+        </template>
+      </div>
+      <!-- <div class="tr">
         <div class="td">138****000</div>
         <div class="td">未签约</div>
         <div class="td">0</div>
@@ -20,12 +33,12 @@
         <div class="td">
           <span class="red">200</span>
         </div>
-      </div>
+      </div>-->
       <div class="tr sum">
         <div class="td"></div>
         <div class="td"></div>
         <div class="td">
-          <span class="red">200</span>
+          <span class="red">{{total}}</span>
         </div>
       </div>
     </div>
@@ -33,7 +46,38 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      list: []
+    }
+  },
+  computed: {
+    total() {
+      let tt = this.list.reduce((a, b) => {
+        return a + (b.ticheng ? b.ticheng : 0)
+      }, 0)
+      return tt
+    }
+  },
+  onLoad() {
+    this.getData()
+  },
+  onShow() {
+    this.getData()
+  },
+  methods: {
+    getData() {
+      this.$http.get('TuijianList').then(res => {
+        // console.log(JSON.stringify(res.data))
+        if (res.ret === 0) {
+          this.list = res.data
+        }
+        console.log(res)
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

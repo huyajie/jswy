@@ -17,19 +17,20 @@
     </div>
     <div class="sub-tit">问题和意见</div>
     <div class>
-      <textarea class="textarea" placeholder="请详细描述您在使用家政无忧小程序时遇到的问题，如果功能异常，上传截图，可以更快解决" placeholder-style="color:#999;font-size:26rpx;line-height:1.8"/>
+      <textarea class="textarea" placeholder="请详细描述您在使用无忧家政小程序时遇到的问题，如果功能异常，上传截图，可以更快解决" placeholder-style="color:#999;font-size:26rpx;line-height:1.8"/>
     </div>
     <div class="sub-tit">添加图片（选填，提供问题截图）</div>
     <div class="pic clearfix">
       <div class="item" @click="previewImage(item)" v-for="(item,index) in imgs" :key="index">
         <img class="img" :src="item" mode="aspectFit" alt>
+        <div class="del-icon" @click.stop="delImg(index)">x</div>
       </div>
       <div class="add" @click="chooseImg">
         <img class="add-icon" src="../../assets/images/invite/fankuiicon01.png" alt>
       </div>
     </div>
     <div class="button-box">
-      <button class="btn">提交</button>
+      <button class="btn" :class="isSubmit?'disabled' : ''" :loading="isSubmit" :disabled="isSubmit">提交</button>
     </div>
   </div>
 </template>
@@ -38,7 +39,8 @@
 export default {
   data() {
     return {
-      imgs: []
+      imgs: [],
+      isSubmit: true
     }
   },
   components: {},
@@ -48,6 +50,9 @@ export default {
         current: link, // 当前显示图片的http链接
         urls: this.imgs // 需要预览的图片http链接列表
       })
+    },
+    delImg(index) {
+      this.imgs.splice(index, 1)
     },
     radioChange() {},
     chooseImg() {
@@ -133,7 +138,21 @@ export default {
       background: #efefef;
     }
     .item {
+      position: relative;
       @extend .size;
+      .del-icon {
+        position: absolute;
+        top: -15rpx;
+        right: -15rpx;
+        width: 32rpx;
+        height: 32rpx;
+        background: #f42c48;
+        border-radius: 50%;
+        line-height: 30rpx;
+        text-align: center;
+        color: #fff;
+        font-size: 26rpx;
+      }
       .img {
         width: 115rpx;
         height: 152rpx;

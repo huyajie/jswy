@@ -37,6 +37,47 @@ export default {
     },
     submit() {
       console.log(this.form)
+      let arr = []
+      for (let index = 0; index < this.form.length; index++) {
+        const element = this.form[index]
+        if (!this.$utils.checkMobile(element.value) && element.value != '') {
+          this.$utils.showError('手机号格式不正确')
+          return false
+          break
+        }
+        if (element.value) {
+          arr.push(element.value)
+        }
+      }
+
+      if (arr.length === 0) {
+        this.$utils.showError('至少添加一个手机号')
+        return false
+      }
+      console.log(arr)
+
+      // if (!this.$utils.checkMobile(this.mobile)) {
+      //   this.$utils.showError('手机号格式不正确')
+      //   return false
+      // }
+      this.isSubmit = true
+      this.$http.post('UserTuijian', { tjsj: JSON.stringify(arr) }).then(
+        res => {
+          console.log(res)
+          this.isSubmit = false
+          if (res.ret === 0) {
+            this.$utils.showError('推荐成功')
+            this.form = [{ value: '' }]
+          } else if (res.msg) {
+            this.$utils.showError(res.msg)
+          } else {
+            this.$utils.showError('系统异常，请稍后再试')
+          }
+        },
+        err => {
+          this.isSubmit = false
+        }
+      )
     }
   }
 }
