@@ -4,36 +4,43 @@
       <img class="img" src="../../assets/images/invite/tuijian_banner.jpg" alt>
     </div>
     <div class="form-group">
-      <div class="input-block" v-for="(item,index) in form" :key="index">
-        <input class="input" type="text" v-model="item.value" placeholder="请输入好友手机号">
+      <div class="input-block" :class="{err:item.error}" v-for="(item,index) in form" :key="index">
+        <input class="input" type="text" @focus="inputFocusEvt(index)" v-model="item.value" placeholder="请输入好友手机号">
         <div class="btn" :class="index === form.length-1 ? '':'del'" @click="opreat(index)">{{index === form.length-1 ? '增加':'删除'}}</div>
+        <div class="error" v-show="item.error">{{item.isSelf ? '您' :'其他人'}}已推荐过此人</div>
       </div>
       <button class="btn-submit" :class="{disabled:isSubmit}" @click="submit" :loading="isSubmit" :disabled="isSubmit">立即推荐</button>
     </div>
     <div class="tj-text">
       说明:
       <br>1、无忧家政工作人员在联系过程中不会透露是您推荐的，请放心。
-      <br>2、每签约一位好友，送您200工资券，可以用来给阿姨发工资使用，累积不上限，多多推荐吧。
+      <br>2、每签约一位好友，送您200工资券，可以用来给家政服务员发工资使用，累积不上限，多多推荐吧。
     </div>
   </div>
 </template>
 
 <script>
+import Auth from '@/utils/auth.js'
+
 export default {
   data() {
     return {
       isSubmit: false,
-      form: [{ value: '' }]
+      form: [{ value: '', error: false, isSelf: false }]
     }
   },
   components: {},
   methods: {
     opreat(index) {
       if (index === this.form.length - 1) {
-        this.form.push({ value: '' })
+        this.form.push({ value: '', error: false, isSelf: false })
       } else {
         this.form.splice(index, 1)
       }
+    },
+    inputFocusEvt(idx) {
+      this.form[idx].error = false
+      this.form[idx].isSelf = false
     },
     submit() {
       console.log(this.form)
@@ -68,6 +75,21 @@ export default {
           if (res.ret === 0) {
             this.$utils.showError('推荐成功')
             this.form = [{ value: '' }]
+          } else if (res.ret == -2) {
+            let userId = Auth.getInfo('user_id')
+            let errList = res.data
+            this.form.forEach(item => {
+              let r = errList.find(subItem => {
+                return item.value === subItem.guphone
+              })
+              if (r) {
+                item.error = true
+                item.isSelf = r.userid == userId
+              }
+            })
+            console.log(this.form)
+            // console.log(userId)
+            // this.$utils.showError(res.msg)
           } else if (res.msg) {
             this.$utils.showError(res.msg)
           } else {
@@ -102,8 +124,21 @@ export default {
 .form-group {
   padding: 40rpx 50px;
   .input-block {
+    position: relative;
     display: flex;
-    margin-bottom: 30rpx;
+    margin-bottom: 40rpx;
+    &.err {
+      .input {
+        border-color: #fe2724;
+      }
+    }
+    .error {
+      position: absolute;
+      bottom: -40rpx;
+      color: #fe2724;
+      font-size: 24rpx;
+      line-height: 40rpx;
+    }
     .input {
       flex: 1;
       height: 100rpx;
@@ -112,6 +147,7 @@ export default {
       border-radius: 10rpx;
       font-size: 30rpx;
       box-sizing: border-box;
+      transition: 0.3s;
     }
     .btn {
       width: 130rpx;
