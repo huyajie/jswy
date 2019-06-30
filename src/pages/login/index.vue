@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       checkType: true, //默认页面展示 选择登录方式的按钮
-      bannerList: ['http://m.51baomu.cn/tupian/jzxiaochengxu/xbanner.png'],
+      bannerList: [require('@/assets/images/home/ban2.jpg')],
       query: {
         type: 'back',
         redirect: ''

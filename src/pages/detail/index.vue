@@ -12,7 +12,7 @@ import FormList from './components/FormList'
 export default {
   data() {
     return {
-      bannerList: ['http://m.51baomu.cn/tupian/jzxiaochengxu/xbanner.png']
+      bannerList: [require('@/assets/images/home/ban2.jpg')]
     }
   },
   components: {

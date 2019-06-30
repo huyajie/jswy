@@ -39,7 +39,7 @@
         "selectedIconPath": "static/tabs/tab01_s.png"
       },
       {
-        "text": "选阿姨",
+        "text": "选人",
         "pagePath": "pages/list/main",
         "iconPath": "static/tabs/tab02.png",
         "selectedIconPath": "static/tabs/tab02_s.png"
@@ -60,7 +60,7 @@
         "activeIcon": "static/tabs/tab01_s.png"
       },
       {
-        "name": "选阿姨",
+        "name": "选人",
         "pagePath": "pages/list/main",
         "icon": "static/tabs/tab02.png",
         "activeIcon": "static/tabs/tab02_s.png"

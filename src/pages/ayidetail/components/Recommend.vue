@@ -1,7 +1,7 @@
 <template>
   <div class="recommend">
     <div class="sub-tit">
-      <div class="sub-tit-inner">推荐阿姨</div>
+      <div class="sub-tit-inner">推荐服务员</div>
     </div>
     <ayi-list :list="list"></ayi-list>
     <!-- type="redirect" -->

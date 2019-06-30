@@ -1,13 +1,13 @@
 <template>
   <div class="wrap">
     <div class="banner">
-      <img class="img" src="../../assets/images/invite/yaoqing_bt.png" alt>
+      <img class="img" src="../../assets/images/invite/yaoqing_bt.png" alt />
     </div>
     <div class="card">
       <div class="title">
-        <img class="img" src="../../assets/images/invite/yaoqing_04.png" alt>
+        <img class="img" src="../../assets/images/invite/yaoqing_04.png" alt />
         <span class="text">奖励说明</span>
-        <img class="img" src="../../assets/images/invite/yaoqing_04.png" alt>
+        <img class="img" src="../../assets/images/invite/yaoqing_04.png" alt />
       </div>
       <div class="card-inner explain">
         <div class="item">
@@ -22,41 +22,41 @@
     </div>
     <div class="card p0">
       <div class="title">
-        <img class="img" src="../../assets/images/invite/yaoqing_04.png" alt>
+        <img class="img" src="../../assets/images/invite/yaoqing_04.png" alt />
         <span class="text">邀请方式</span>
-        <img class="img" src="../../assets/images/invite/yaoqing_04.png" alt>
+        <img class="img" src="../../assets/images/invite/yaoqing_04.png" alt />
       </div>
       <div class="invite-type-list">
         <div class="item">
           <div class="flex-center">
-            <img class="img" src="../../assets/images/invite/yaoqing_07.png" alt>
+            <img class="img" src="../../assets/images/invite/yaoqing_07.png" alt />
           </div>
           <div class="flex-center text">
             <p>
               打开微信列表
-              <br>直接邀请好友
+              <br />直接邀请好友
             </p>
           </div>
           <div class="flex-center">
             <button class="btn" open-type="share">
-              <img class="icon icon-wx" src="../../assets/images/invite/yaoqing_05.png" alt>
+              <img class="icon icon-wx" src="../../assets/images/invite/yaoqing_05.png" alt />
               马上邀请好友
             </button>
           </div>
         </div>
         <div class="item">
           <div class="flex-center">
-            <img class="img" src="../../assets/images/invite/yaoqing_08.png" alt>
+            <img class="img" src="../../assets/images/invite/yaoqing_08.png" alt />
           </div>
           <div class="flex-center text">
             <p>
               生成图片
-              <br>发朋友圈或发给好友
+              <br />发朋友圈或发给好友
             </p>
           </div>
           <div class="flex-center">
             <button class="btn save-btn">
-              <img class="icon icon-down" src="../../assets/images/invite/yaoqing_06.png" alt>
+              <img class="icon icon-down" src="../../assets/images/invite/yaoqing_06.png" alt />
               保存图片
             </button>
           </div>
@@ -67,12 +67,15 @@
 </template>
 
 <script>
+import Auth from '@/utils/auth.js'
 export default {
   components: {},
   onShareAppMessage: function(res) {
+    let id = Auth.getInfo('user_id')
+    let mobile = Auth.getInfo('shoujihao')
     return {
       title: '推荐你来这儿找家政服务，服务很好，给您申请了200元家政红包，找家政服务更便宜，快领！',
-      path: '/pages/gifts/main',
+      path: `/pages/gifts/main?id=${id}&mobil=${mobile}`,
       imageUrl: require('../../assets/images/invite/share.png')
     }
   }

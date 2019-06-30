@@ -4,7 +4,7 @@
       <div class="tel" @click="goYuyue">
         <img src="../../../assets/images/detail/tel.jpg" class="img-tel" alt>留电咨询
       </div>
-      <button class="btn" :class="submitLoading?'disabled' : ''" @click="submit" :disabled="submitLoading" :loading="submitLoading">预约此阿姨</button>
+      <button class="btn" :class="submitLoading?'disabled' : ''" @click="submit" :disabled="submitLoading" :loading="submitLoading">预约此服务员</button>
     </div>
     <div class="ayi-info">
       <div class="recommend-tag" @click="recommendEvent">

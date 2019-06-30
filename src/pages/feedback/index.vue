@@ -6,41 +6,46 @@
         <label class="radio">
           功能异常
           <div class="small">不能使用现有功能</div>
-          <radio :value="1" :checked="true"/>
+          <radio :value="1" :checked="true" />
         </label>
         <label class="radio">
           其他问题
           <div class="small">用的不爽、功能建议都提过来吧</div>
-          <radio :value="2" :checked="false"/>
+          <radio :value="2" :checked="false" />
         </label>
       </radio-group>
     </div>
     <div class="sub-tit">问题和意见</div>
     <div class>
-      <textarea class="textarea" placeholder="请详细描述您在使用无忧家政小程序时遇到的问题，如果功能异常，上传截图，可以更快解决" placeholder-style="color:#999;font-size:26rpx;line-height:1.8"/>
+      <textarea v-model="ques" class="textarea" placeholder="请详细描述您在使用无忧家政小程序时遇到的问题，如果功能异常，上传截图，可以更快解决" placeholder-style="color:#999;font-size:26rpx;line-height:1.8" />
     </div>
     <div class="sub-tit">添加图片（选填，提供问题截图）</div>
     <div class="pic clearfix">
       <div class="item" @click="previewImage(item)" v-for="(item,index) in imgs" :key="index">
-        <img class="img" :src="item" mode="aspectFit" alt>
+        <img class="img" :src="item" mode="aspectFit" alt />
         <div class="del-icon" @click.stop="delImg(index)">x</div>
       </div>
       <div class="add" @click="chooseImg">
-        <img class="add-icon" src="../../assets/images/invite/fankuiicon01.png" alt>
+        <img class="add-icon" src="../../assets/images/invite/fankuiicon01.png" alt />
       </div>
     </div>
     <div class="button-box">
-      <button class="btn" :class="isSubmit?'disabled' : ''" :loading="isSubmit" :disabled="isSubmit">提交</button>
+      <button class="btn" @click="feedBack" :class="isSubmit?'disabled' : ''" :loading="isSubmit" :disabled="isSubmit">提交</button>
     </div>
   </div>
 </template>
 
 <script>
+import Auth from '@/utils/auth.js'
+import uploadImage from '@/utils/upload/index.js'
+
 export default {
   data() {
     return {
+      radio: '1',
+      ques: '',
       imgs: [],
-      isSubmit: true
+      isSubmit: false
     }
   },
   components: {},
@@ -54,7 +59,28 @@ export default {
     delImg(index) {
       this.imgs.splice(index, 1)
     },
-    radioChange() {},
+    feedBack() {
+      let parm = {
+        errType: this.radio == '1' ? '功能异常' : '其他异常',
+        errMsg: '',
+        content: this.ques,
+        imglist: JSON.stringify(this.imgs)
+      }
+      this.$http.post('fankui', parm).then(res => {
+        console.log(res)
+        if (res.ret === 0) {
+          this.$utils.showError('反馈成功')
+        } else if (res.msg) {
+          this.$utils.showError(res.msg)
+        } else {
+          this.$utils.showError('系统异常')
+        }
+      })
+    },
+    radioChange(e) {
+      console.log(e.mp.detail)
+      this.radio = e.mp.detail.value
+    },
     chooseImg() {
       let _this = this
       mpvue.chooseImage({
@@ -63,9 +89,28 @@ export default {
         sourceType: ['album', 'camera'],
         success(res) {
           // tempFilePath可以作为img标签的src属性显示图片
+          let id = Auth.getInfo('user_id')
           const tempFilePaths = res.tempFilePaths
-          _this.imgs.push(...tempFilePaths)
+          let filePath = tempFilePaths[0]
+          // _this.imgs.push(filePath)
+          let tmpArr = filePath.split('.')
+          let name = new Date().getTime() + '.' + tmpArr[tmpArr.length - 1]
+          mpvue.showLoading()
+          uploadImage(
+            filePath,
+            `alioss/jzimg/type1/${id}` + name,
+            function(result) {
+              mpvue.hideLoading()
+              console.log(result)
+              _this.imgs.push(result)
+            },
+            function(result) {
+              // console.log("======上传失败======", result);
+              mpvue.hideLoading()
+            }
+          )
           console.log(res)
+          console.log(name)
         },
         complete(res) {}
       })

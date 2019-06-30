@@ -1,7 +1,7 @@
 <template>
   <div class="recommend">
     <div class="sub-tit">
-      <span class="line"></span>推荐阿姨
+      <span class="line"></span>推荐服务员
     </div>
     <ayi-list :list="list"></ayi-list>
   </div>

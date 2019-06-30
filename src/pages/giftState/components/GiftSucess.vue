@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="sucess-box">
-      <img class="img" mode="aspectFit" src="../../../assets/images/state/right.png" alt>
+      <img class="img" mode="aspectFit" src="../../../assets/images/state/right.png" alt />
       <p>领取成功</p>
       <div class="text">签约后，此券可抵扣服务费</div>
     </div>
     <div class="recommend">
       <div class="sub-tit">
-        <span class="line"></span>推荐阿姨
+        <span class="line"></span>推荐服务员
         <span @click="goList" class="right">去挑选 &gt;</span>
       </div>
       <ayi-list :list="list"></ayi-list>

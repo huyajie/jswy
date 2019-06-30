@@ -25,7 +25,7 @@ function post(url, data, header, hideLoading) {
 }
 
 function all(opt) {
-  let wholeUrl = `${config.domain}${opt.url}`
+  let wholeUrl = opt.url.indexOf('http') === -1 ? `${config.domain}${opt.url}` : opt.url
   let authHeader = opt.header || {}
   let auth = Auth.getToken()
   //console.log(auth)

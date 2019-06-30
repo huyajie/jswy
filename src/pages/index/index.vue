@@ -16,7 +16,12 @@ export default {
   data() {
     return {
       list: [],
-      bannerList: ['http://m.51baomu.cn/tupian/jzxiaochengxu/xbanner.png', require('@/assets/images/home/banner.jpg')]
+      bannerList: [
+        require('@/assets/images/home/ban1.jpg'),
+        require('@/assets/images/home/ban2.jpg'),
+        require('@/assets/images/home/ban3.jpg'),
+        require('@/assets/images/home/ban4.jpg')
+      ]
     }
   },
 
