@@ -32,29 +32,27 @@ export default {
       if (!Auth.checkLogin()) {
         return false
       }
+      let parms = {
+        apiKey: '51baomu',
+        version: '1.0',
+        clientId: '111',
+        reqId: '1',
+        reqTime: '1561538290018',
+        dataType: 'json',
+        data: {
+          chongzhika_huodong_id: this.query.id,
+          shoujihao: this.query.mobile,
+          guanggaozuid: '0',
+          laiyuan: '家事无忧微信小程序'
+        },
+        sign: '1',
+        token: 'login'
+      }
+      console.log(parms)
       this.$http
-        .post(
-          'https://www.51baomu.cn/wcfyonghu/appdatacustomer.svc/i_p_chongzhika_huodong',
-          JSON.stringify({
-            apiKey: '51baomu',
-            version: '1.0',
-            clientId: '111',
-            reqId: '1',
-            reqTime: '1561538290018',
-            dataType: 'json',
-            data: {
-              chongzhika_huodong_id: this.query.id,
-              shoujihao: this.query.mobile,
-              guanggaozuid: '0',
-              laiyuan: '家事无忧微信小程序'
-            },
-            sign: '1',
-            token: 'login'
-          }),
-          {
-            'content-type': 'application/x-www-form-urlencoded'
-          }
-        )
+        .post('https://www.51baomu.cn/wcfyonghu/appdatacustomer.svc/i_p_chongzhika_huodong', JSON.stringify(parms), {
+          'content-type': 'application/x-www-form-urlencoded'
+        })
         .then(res => {
           console.log(res)
           if (res.status === 0) {
