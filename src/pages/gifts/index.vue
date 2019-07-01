@@ -40,7 +40,7 @@ export default {
         reqTime: '1561538290018',
         dataType: 'json',
         data: {
-          chongzhika_huodong_id: this.query.id,
+          chongzhika_huodong_id: '3041',
           shoujihao: this.query.mobile,
           guanggaozuid: '0',
           laiyuan: '家事无忧微信小程序'
@@ -58,6 +58,10 @@ export default {
           if (res.status === 0) {
             this.$router.navigateTo({
               url: '/pages/giftState/main?type=1'
+            })
+          } else if (res.status == 4) {
+            this.$router.navigateTo({
+              url: '/pages/giftState/main?type=2'
             })
           } else {
             this.$utils.showError(res.message)

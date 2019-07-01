@@ -1,8 +1,8 @@
 <template>
   <div class="banner" :class="source == 'detail' ? 'detail' :''">
     <swiper class="swiper" :indicator-dots="bannerList.length>1" indicator-active-color="#0ab727">
-      <swiper-item v-for="(item,index) in bannerList" :key="index">
-        <img class="img" :src="item" alt>
+      <swiper-item v-for="(item,index) in bannerList" :key="index" @click="bannerClick(index)">
+        <img class="img" :src="item.src" alt />
       </swiper-item>
     </swiper>
   </div>
@@ -13,6 +13,20 @@ export default {
   data() {
     return {}
   },
+  computed: {
+    bannerListTrans() {
+      let tmpArr = []
+      this.bannerList.forEach(item => {
+        console.log(typeof item)
+        if (typeof item === 'string') {
+          tmpArr.push({ src: item })
+        } else {
+          tmpArr.push(item)
+        }
+      })
+      return tmpArr
+    }
+  },
   props: {
     source: {
       type: String,
@@ -20,7 +34,15 @@ export default {
     },
     bannerList: {
       type: Array,
-      default: ['http://m.51baomu.cn/tupian/jzxiaochengxu/xbanner.png']
+      default() {
+        return ['http://m.51baomu.cn/tupian/jzxiaochengxu/xbanner.png']
+      }
+    }
+  },
+  methods: {
+    bannerClick(idx) {
+      let obj = this.bannerListTrans[idx]
+      obj.callback && obj.callback()
     }
   },
   created() {

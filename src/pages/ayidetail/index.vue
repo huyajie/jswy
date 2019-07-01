@@ -66,6 +66,10 @@ export default {
         imageUrl: require('../../assets/images/invite/share.png')
       }
       console.log(res)
+    } else {
+      return {
+        path: `/pages/ayidetail/main?id=${this.id}`
+      }
     }
   },
   onUnload() {

@@ -14,10 +14,18 @@ import RecommendList from './components/Recommend'
 import ConponMask from './components/ConponMask'
 export default {
   data() {
+    let _this = this
     return {
       list: [],
       bannerList: [
-        require('@/assets/images/home/ban1.jpg'),
+        {
+          src: require('@/assets/images/home/ban1.jpg'),
+          callback() {
+            _this.$router.navigateTo({
+              url: `/pages/webview/main?src=${encodeURIComponent('https://m.51baomu.cn/xiaochengxu/200youhui/')}`
+            })
+          }
+        },
         require('@/assets/images/home/ban2.jpg'),
         require('@/assets/images/home/ban3.jpg'),
         require('@/assets/images/home/ban4.jpg')
