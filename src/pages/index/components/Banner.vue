@@ -1,7 +1,7 @@
 <template>
   <div class="banner" :class="source == 'detail' ? 'detail' :''">
-    <swiper class="swiper" :indicator-dots="bannerList.length>1" indicator-active-color="#0ab727">
-      <swiper-item v-for="(item,index) in bannerList" :key="index" @click="bannerClick(index)">
+    <swiper class="swiper" :indicator-dots="bannerListTrans.length>1" indicator-active-color="#0ab727">
+      <swiper-item v-for="(item,index) in bannerListTrans" :key="index" @click="bannerClick(index)">
         <img class="img" :src="item.src" alt />
       </swiper-item>
     </swiper>
@@ -17,13 +17,15 @@ export default {
     bannerListTrans() {
       let tmpArr = []
       this.bannerList.forEach(item => {
-        console.log(typeof item)
-        if (typeof item === 'string') {
+        let type = typeof item
+
+        if (type === 'string') {
           tmpArr.push({ src: item })
         } else {
           tmpArr.push(item)
         }
       })
+      console.log(tmpArr)
       return tmpArr
     }
   },
