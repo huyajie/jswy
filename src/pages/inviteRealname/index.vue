@@ -55,7 +55,7 @@
             </p>
           </div>
           <div class="flex-center">
-            <button class="btn save-btn">
+            <button class="btn save-btn" @click="creatImg">
               <img class="icon icon-down" src="../../assets/images/invite/yaoqing_06.png" alt />
               保存图片
             </button>
@@ -69,6 +69,111 @@
 <script>
 import Auth from '@/utils/auth.js'
 export default {
+  methods: {
+    creatImg() {
+      // console.log(obj)
+      //获取相册授权
+      let _this = this
+      mpvue.getSetting({
+        success(res) {
+          console.log(res)
+          // _this.getImg()
+          if (!res.authSetting['scope.writePhotosAlbum']) {
+            mpvue.authorize({
+              scope: 'scope.writePhotosAlbum',
+              success() {
+                console.log('授权成功')
+                _this.getImg()
+              },
+              fail() {
+                console.log(222)
+                // _this.$utils.showError('没有授权')
+                mpvue.showModal({
+                  showCancel: false,
+                  title: '提示',
+                  content: '请授权后在下载',
+                  success(res) {
+                    console.log(res)
+                    mpvue.openSetting({
+                      success(settingdata) {
+                        console.log(settingdata)
+                        if (settingdata.authSetting['scope.writePhotosAlbum']) {
+                          console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
+                        } else {
+                          console.log('获取权限失败，给出不给权限就无法正常使用的提示')
+                        }
+                      }
+                    })
+                  }
+                })
+              }
+            })
+          } else {
+            console.log(1111)
+            _this.getImg()
+          }
+        }
+      })
+    },
+    getImg() {
+      let obj = mpvue.getLaunchOptionsSync()
+      this.$http.post('tjgzcode', { scene: `${obj.scene}` }).then(res => {
+        if (res.ret === 0) {
+          this.saveImg(res.data.url)
+        } else if (res.msg) {
+          this.$utils.showError(res.msg)
+        } else {
+          this.$utils.showError('系统故障，稍后再试')
+        }
+      })
+    },
+    saveImg(url) {
+      mpvue.showLoading({
+        title: '正在生成',
+        content: '正在生成'
+      })
+      mpvue.downloadFile({
+        url: url,
+        success: function(res) {
+          mpvue.hideLoading()
+          console.log(res)
+          //图片保存到本地
+          mpvue.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success: function(data) {
+              mpvue.showToast({
+                title: '保存成功',
+                icon: 'success',
+                duration: 2000
+              })
+            },
+            fail: function(err) {
+              console.log(err)
+              // if (err.errMsg === "saveImageToPhotosAlbum:fail auth deny") {
+              //   console.log("当初用户拒绝，再次发起授权")
+              //   wx.openSetting({
+              //     success(settingdata) {
+              //       console.log(settingdata)
+              //       if (settingdata.authSetting['scope.writePhotosAlbum']) {
+              //         console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
+              //       } else {
+              //         console.log('获取权限失败，给出不给权限就无法正常使用的提示')
+              //       }
+              //     }
+              //   })
+              // }
+            },
+            complete(res) {
+              console.log(res)
+            }
+          })
+        },
+        fail() {
+          mpvue.hideLoading()
+        }
+      })
+    }
+  },
   components: {},
   onShareAppMessage: function(res) {
     let id = Auth.getInfo('user_id')
