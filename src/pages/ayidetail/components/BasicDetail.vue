@@ -2,18 +2,21 @@
   <div>
     <div class="submit-cont">
       <div class="tel" @click="goYuyue">
-        <img src="../../../assets/images/detail/tel.jpg" class="img-tel" alt>留电咨询
+        <img src="../../../assets/images/detail/tel.jpg" class="img-tel" alt />留电咨询
       </div>
       <button class="btn" :class="submitLoading?'disabled' : ''" @click="submit" :disabled="submitLoading" :loading="submitLoading">预约此服务员</button>
     </div>
     <div class="ayi-info">
-      <div class="recommend-tag" @click="recommendEvent">
+      <!-- <div class="recommend-tag" @click="recommendEvent">
         推荐有奖
         <span class="icon-ques">?</span>
+      </div>-->
+      <div class="recommend-tag">
+        <button class="btn-share" open-type="share">转发分享</button>
       </div>
       <div class="flex-box">
         <div class="pic">
-          <img class="img" :src="details.photo ? details.photo : defaultHead" alt>
+          <img class="img" :src="details.photo ? details.photo : defaultHead" alt />
         </div>
         <div class="cont">
           <div>
@@ -76,7 +79,7 @@
         <div class="sub-tit">证件 / 作品展示</div>
         <div class="cont-img clearfix">
           <div class="img-item" @click="previewImage(item)" v-for="(item,index) in zhengjiantupian" :key="index">
-            <img class="img" mode="aspectFit" :src="item" alt>
+            <img class="img" mode="aspectFit" :src="item" alt />
           </div>
           <!-- <div class="img-item">
             <img class="img" mode="aspectFit" src="https://imgs.qunarzz.com/sight/p0/1708/2b/2b3b94de99c0a425a3.img.jpg_222x168_93cb017d.jpg" alt>
@@ -94,8 +97,8 @@
       <div class="mask"></div>
       <div class="cont">
         <button class="share-btn" open-type="share"></button>
-        <img mode="aspectFit" src="../../../assets/images/invite/tuijiantc01.png" alt class="img">
-        <img mode="aspectFit" src="../../../assets/images/invite/tuijiantc01_gb.png" alt class="close" @click="showModal=false">
+        <img mode="aspectFit" src="../../../assets/images/invite/tuijiantc01.png" alt class="img" />
+        <img mode="aspectFit" src="../../../assets/images/invite/tuijiantc01_gb.png" alt class="close" @click="showModal=false" />
       </div>
     </div>
   </div>
@@ -288,6 +291,11 @@ export default {
     line-height: 32rpx;
     color: #ff9000;
     font-size: 24rpx;
+    .btn-share {
+      color: #ff9000;
+      font-size: 24rpx;
+      background: #fff;
+    }
     .icon-ques {
       display: inline-block;
       width: 32rpx;

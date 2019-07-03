@@ -57,20 +57,20 @@ export default {
     }
   },
   onShareAppMessage(res) {
-    if (res.from === 'button') {
-      let id = Auth.getInfo('user_id')
-      let mobile = Auth.getInfo('shoujihao')
-      return {
-        title: '推荐你来这儿找家政服务，服务很好，给您申请了200元家政红包，找家政服务更便宜，快领！',
-        path: `/pages/gifts/main?id=${id}&mobile=${mobile}`,
-        imageUrl: require('../../assets/images/invite/share.png')
-      }
-      console.log(res)
-    } else {
-      return {
-        path: `/pages/ayidetail/main?id=${this.id}`
-      }
+    // if (res.from === 'button') {
+    //   let id = Auth.getInfo('user_id')
+    //   let mobile = Auth.getInfo('shoujihao')
+    //   return {
+    //     title: '推荐你来这儿找家政服务，服务很好，给您申请了200元家政红包，找家政服务更便宜，快领！',
+    //     path: `/pages/gifts/main?id=${id}&mobile=${mobile}`,
+    //     imageUrl: require('../../assets/images/invite/share.png')
+    //   }
+    //   console.log(res)
+    // } else {
+    return {
+      path: `/pages/ayidetail/main?id=${this.id}`
     }
+    // }
   },
   onUnload() {
     // console.log(dataArr)
