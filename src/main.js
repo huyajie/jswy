@@ -1,4 +1,4 @@
-import '../static/sdk/ald-stat'
+// import '../static/sdk/sald-stat'
 
 import Vue from 'vue'
 import App from './App'
