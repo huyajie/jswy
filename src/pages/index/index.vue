@@ -73,7 +73,8 @@ export default {
           this.list = []
         }
       })
-  }
+  },
+  onShareAppMessage() {}
 }
 </script>
 

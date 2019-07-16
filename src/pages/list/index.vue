@@ -125,7 +125,8 @@ export default {
     // "enablePullDownRefresh": true,
     // "backgroundTextStyle": "dark"
     // 显示顶部刷新图标
-  }
+  },
+  onShareAppMessage() {}
 }
 </script>
 
