@@ -71,17 +71,18 @@
       </div>
     </div>
     <div class="ayi-cont">
-      <div class="item">
-        <div class="sub-tit">自我介绍</div>
-        <div class="cont">{{details.ziwojieshao || '暂无'}}</div>
-      </div>
-      <div class="item">
-        <div class="sub-tit">证件 / 作品展示</div>
-        <div class="cont-img clearfix">
-          <div class="img-item" @click="previewImage(item)" v-for="(item,index) in zhengjiantupian" :key="index">
-            <img class="img" mode="aspectFit" :src="item" alt />
-          </div>
-          <!-- <div class="img-item">
+      <template v-if="isLogin">
+        <div class="item">
+          <div class="sub-tit">自我介绍</div>
+          <div class="cont">{{details.ziwojieshao || '暂无'}}</div>
+        </div>
+        <div class="item">
+          <div class="sub-tit">证件 / 作品展示</div>
+          <div class="cont-img clearfix">
+            <div class="img-item" @click="previewImage(item)" v-for="(item,index) in zhengjiantupian" :key="index">
+              <img class="img" mode="aspectFit" :src="item" alt />
+            </div>
+            <!-- <div class="img-item">
             <img class="img" mode="aspectFit" src="https://imgs.qunarzz.com/sight/p0/1708/2b/2b3b94de99c0a425a3.img.jpg_222x168_93cb017d.jpg" alt>
           </div>
           <div class="img-item">
@@ -89,9 +90,11 @@
           </div>
           <div class="img-item">
             <img class="img" mode="aspectFit" src="http://img1.qunarzz.com/sight/p0/1708/2b/2b3b94de99c0a425a3.img.jpg_200x200_2458ffb2.jpg" alt>
-          </div>-->
+            </div>-->
+          </div>
         </div>
-      </div>
+      </template>
+      <div class="login-see" v-else>登录后查看更多</div>
     </div>
     <div class="recommend-pop" v-if="showModal" @touchmove.stop="move">
       <div class="mask"></div>
@@ -115,8 +118,12 @@ export default {
     return {
       submitLoading: false,
       defaultHead: defaultHead,
-      showModal: false
+      showModal: false,
+      isLogin: false
     }
+  },
+  onShow() {
+    this.isLogin = Auth.isLogin()
   },
   methods: {
     move() {},
@@ -388,6 +395,11 @@ export default {
       }
     }
   }
+}
+
+.login-see {
+  padding: 40rpx 0;
+  text-align: center;
 }
 </style>
 

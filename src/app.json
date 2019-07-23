@@ -15,6 +15,7 @@
     "pages/inviteAnonymous/main",
     "pages/inviteRealname/main",
     "pages/feedback/main",
+    "pages/newUser/main",
     "pages/gifts/main",
     "pages/giftState/main"
   ],

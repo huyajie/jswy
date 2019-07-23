@@ -1,5 +1,6 @@
 <template>
   <div>
+    <add-my></add-my>
     <banner :banner-list="bannerList"></banner>
     <category></category>
     <recommend-list :list="list"></recommend-list>
@@ -12,6 +13,7 @@ import Banner from './components/Banner'
 import Category from './components/Category'
 import RecommendList from './components/Recommend'
 import ConponMask from './components/ConponMask'
+import AddMy from './components/AddMy.vue'
 export default {
   data() {
     let _this = this
@@ -22,7 +24,7 @@ export default {
           src: require('@/assets/images/home/ban1.jpg'),
           callback() {
             _this.$router.navigateTo({
-              url: `/pages/webview/main?src=${encodeURIComponent('https://m.51baomu.cn/xiaochengxu/200youhui/')}`
+              url: '/pages/newUser/main'
             })
           }
         },
@@ -34,6 +36,7 @@ export default {
   },
 
   components: {
+    AddMy,
     Banner,
     Category,
     RecommendList,

@@ -3,7 +3,7 @@
     <div class="mask"></div>
     <div class="conpon">
       <div class="close" @click="hideConpon"></div>
-      <img class="img" src="../../../assets/images/home/coupon.jpg" alt>
+      <img class="img" src="../../../assets/images/home/coupon.jpg" alt />
       <div class="btn" @click="goConpon"></div>
     </div>
   </div>
@@ -20,8 +20,11 @@ export default {
     move() {},
     goConpon() {
       this.hideConpon()
+      // this.$router.navigateTo({
+      //   url: `/pages/webview/main?src=${encodeURIComponent('https://m.51baomu.cn/xiaochengxu/200youhui/')}`
+      // })
       this.$router.navigateTo({
-        url: `/pages/webview/main?src=${encodeURIComponent('https://m.51baomu.cn/xiaochengxu/200youhui/')}`
+        url: '/pages/newUser/main'
       })
 
       //
@@ -36,6 +39,7 @@ export default {
 <style lang="scss" scoped>
 .mask {
   position: fixed;
+  z-index: 99;
   top: 0;
   left: 0;
   bottom: 0;
@@ -44,6 +48,7 @@ export default {
 }
 .conpon {
   position: fixed;
+  z-index: 100;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
