@@ -94,7 +94,10 @@
           </div>
         </div>
       </template>
-      <div class="login-see" v-else>登录后查看更多</div>
+      <div class="login-see" v-else>
+        <img class="img" mode="aspectFit" src="../../../assets/images/new_user/icon_yinshi.png" alt />
+        登录后查看更多
+      </div>
     </div>
     <div class="recommend-pop" v-if="showModal" @touchmove.stop="move">
       <div class="mask"></div>
@@ -400,6 +403,15 @@ export default {
 .login-see {
   padding: 40rpx 0;
   text-align: center;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .img {
+    margin-right: 20rpx;
+    width: 44rpx;
+    height: 48rpx;
+  }
 }
 </style>
 

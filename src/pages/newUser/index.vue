@@ -1,7 +1,7 @@
 <template>
   <div class="new-user">
     <div>
-      <img class="banner" mode="aspectFit" src="../../assets/images/invite/mianfeiling01.png" alt />
+      <img class="banner" mode="aspectFit" src="../../assets/images/new_user/banner.png" alt />
     </div>
     <div class="form">
       <div class="text">输入手机号，自动存入无忧账户</div>
@@ -19,12 +19,20 @@ export default {
   data() {
     return {
       isSubmit: false,
-      mobile: '13512341234'
+      mobile: ''
     }
   },
   components: {},
   methods: {
     submit() {
+      if (this.mobile == '') {
+        this.$utils.showError('手机号不能为空')
+        return false
+      }
+      if (!this.$utils.checkMobile(this.mobile)) {
+        this.$utils.showError('手机号格式不正确')
+        return false
+      }
       this.isSubmit = true
       let parms = {
         apiKey: '51baomu',
@@ -74,14 +82,17 @@ export default {
 <style lang="scss" scoped>
 .new-user {
   min-height: 100vh;
-  background: #d42932;
-  background: linear-gradient(#f23c2f, #e3313f);
+  background: #e02f3f;
+  // background: linear-gradient(#f53a2e, #e02f3f);
   .banner {
-    width: 100%;
+    width: 750rpx;
+    height: 725rpx;
+    display: block;
   }
   .form {
     padding: 50rpx 68rpx;
     text-align: center;
+    background: linear-gradient(#f53a2e, #e02f3f);
     .text {
       color: #fde59f;
       font-size: 28rpx;
@@ -100,7 +111,7 @@ export default {
       color: #753f00;
       background: #fde59f;
       border-radius: 8rpx;
-      background: linear-gradient(#fde59f, #f00);
+      background: linear-gradient(#faca2a, #f78c2c);
     }
     .desc {
       color: #fff;
