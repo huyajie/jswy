@@ -94,7 +94,7 @@
           </div>
         </div>
       </template>
-      <div class="login-see" v-else>
+      <div class="login-see" v-else @click="toLogin">
         <img class="img" mode="aspectFit" src="../../../assets/images/new_user/icon_yinshi.png" alt />
         登录后查看更多
       </div>
@@ -129,6 +129,9 @@ export default {
     this.isLogin = Auth.isLogin()
   },
   methods: {
+    toLogin() {
+      Auth.checkLogin()
+    },
     move() {},
     recommendEvent() {
       if (Auth.checkLogin()) {
