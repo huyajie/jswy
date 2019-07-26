@@ -30,7 +30,7 @@ export default {
 
 <style lang="scss" scoped>
 .add-my {
-  position: absolute;
+  position: fixed;
   display: flex;
   background: #fff;
   border-radius: 10rpx;

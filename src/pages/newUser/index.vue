@@ -59,13 +59,16 @@ export default {
           res => {
             console.log(res)
             this.isSubmit = false
-            // if (res.status === 0) {
-            // } else if (res.status == 4) {
-            //   this.$utils.showError(res.message)
-            // } else {
-            //   this.$utils.showError(res.message)
-            // }
-            this.$utils.showError(res.message)
+            if (res.status === 1) {
+              mpvue.showModal({
+                showCancel: false,
+                title: '领取成功',
+                content: '使用该手机号登录无忧保姆app查看并使用或签约时告知工作人员即可使用'
+              })
+            } else {
+              this.$utils.showError(res.message)
+            }
+            // this.$utils.showError(res.message)
           },
           err => {
             this.isSubmit = false
