@@ -3,6 +3,7 @@
     <add-my></add-my>
     <banner :banner-list="bannerList"></banner>
     <category></category>
+    <lottery-day></lottery-day>
     <recommend-list :list="list"></recommend-list>
     <conpon-mask></conpon-mask>
   </div>
@@ -11,6 +12,7 @@
 <script>
 import Banner from './components/Banner'
 import Category from './components/Category'
+import LotteryDay from './components/LotteryDay'
 import RecommendList from './components/Recommend'
 import ConponMask from './components/ConponMask'
 import AddMy from './components/AddMy.vue'
@@ -39,6 +41,7 @@ export default {
     AddMy,
     Banner,
     Category,
+    LotteryDay,
     RecommendList,
     ConponMask
   },

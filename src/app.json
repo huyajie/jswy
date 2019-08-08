@@ -19,6 +19,12 @@
     "pages/gifts/main",
     "pages/giftState/main"
   ],
+  "subPackages": [
+    {
+      "root": "pages/package/",
+      "pages": ["lottery/main"]
+    }
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#0ab727",
