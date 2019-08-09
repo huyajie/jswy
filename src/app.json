@@ -22,7 +22,7 @@
   "subPackages": [
     {
       "root": "pages/package/",
-      "pages": ["lottery/main"]
+      "pages": ["lottery/main", "lotteryRule/main", "userPrize/main"]
     }
   ],
   "window": {

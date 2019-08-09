@@ -1,16 +1,26 @@
 <template>
   <div class="lottery-index">
-    <div class="item">
+    <div class="item" @click="goLottery">
       <img class="img" mode="aspectFit" src="../../../assets/images/home/lottery_1.png" alt />
     </div>
     <div class="item">
-      <img class="img" mode="aspectFit" src="../../../assets/images/home/lottery_2.png" alt />
+      <button open-type="share">
+        <img class="img" mode="aspectFit" src="../../../assets/images/home/lottery_2.png" alt />
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    goLottery() {
+      this.$router.navigateTo({
+        url: '/pages/package/lottery/main'
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

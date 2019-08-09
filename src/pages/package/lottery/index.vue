@@ -1,11 +1,11 @@
 <template>
   <div class="lottery-bg lattery">
-    <div class="active-rule">
+    <div class="active-rule" @click="goRule">
       <img class="img" mode="aspectFit" src="../../../assets/images/lottery/lx_choujiang_02.png" alt />
     </div>
     <div class="tip-tel">
       <img class="img" mode="aspectFit" src="../../../assets/images/lottery/lx_choujiang_01.png" alt />
-      1581231231231抵扣券
+      {{tipTel}}
     </div>
     <div class="title">
       <img class="img" mode="aspectFit" src="../../../assets/images/lottery/lx_choujiang_03.png" alt />
@@ -13,26 +13,144 @@
     <div class="count">
       <div class="text">
         您还有
-        <span class="num">2</span>
+        <span class="num">{{hasCount}}</span>
         次免费抽奖机会，电脑等你来拿
       </div>
     </div>
     <div class="lottery-cont">
-      <div class="go-btn">
+      <div class="go-btn" @click="rotate">
         <img class="img" mode="aspectFit" src="../../../assets/images/lottery/go.png" alt />
       </div>
-      <div class="lottery-img">
+      <div class="lottery-img" :animation="animation">
         <img class="img" mode="aspectFit" src="../../../assets/images/lottery/lottery.jpg" alt />
       </div>
       <div class="lottery-foot-img">
         <img class="img" mode="aspectFit" src="../../../assets/images/lottery/foot.jpg" alt />
+        <p class="text" @click="goUserPrize">我的奖品 &gt;</p>
+      </div>
+    </div>
+
+    <div class @touchmove.stop v-show="showPop">
+      <div class="mask" @click="showPop = false"></div>
+      <div class="pop-msg">
+        <div class="cont">
+          <div class="over" v-show="isOver">
+            <p class="text">今日抽奖已达上限~</p>
+            <p class="again">明日在来抽奖吧</p>
+          </div>
+          <div class="result" v-show="resultPop">
+            <p class="text">很遗憾未抽中~</p>
+            <button class="btn">再抽一次</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+import Auth from '@/utils/auth.js'
+
+import { lotteryList } from './data'
+export default {
+  data() {
+    return {
+      animation: null,
+      count: 1,
+      hasCount: 2,
+      showPop: false,
+      isOver: false,
+      resultPop: false,
+      tipTel: '',
+      isDisabled: false
+    }
+  },
+  onLoad() {
+    this.tipTel = lotteryList[this.random()]
+    // this.animation = mpvue.createAnimation({
+    //   duration: 5000,
+    //   timingFunction: 'ease'
+    // })
+    // console.log(this.animation)
+  },
+  methods: {
+    random() {
+      return Math.floor(Math.random() * 73)
+    },
+    rotate() {
+      if (!Auth.checkLogin()) {
+        return false
+      }
+      if (this.isDisabled) {
+        return
+      }
+      if (this.hasCount <= 0) {
+        this.showPop = true
+        this.isOver = true
+        return false
+      }
+
+      let parms = {
+        apiKey: '51baomu',
+        version: '1.0',
+        clientId: '111',
+        reqId: '1',
+        reqTime: '1561538290018',
+        dataType: 'json',
+        data: {
+          chongzhika_huodong_id: '3041',
+          shoujihao: Auth.getInfo('shoujihao'),
+          guanggaozuid: '0',
+          laiyuan: '家事无忧微信小程序'
+        },
+        sign: '1',
+        token: 'login'
+      }
+      console.log(parms)
+      this.isDisabled = true
+
+      this.$http.post('https://api.51baomu.cn/v1/Huodong/Zhuanpanchoujiang', parms).then(res => {
+        console.log(res)
+        this.hasCount--
+        this.start()
+      })
+      // this.$http.post('http://api.51baomu.cn/v1/Huodong/Zhuanpanchoujiang')
+    },
+    start() {
+      this.animation = mpvue.createAnimation({
+        duration: 5000,
+        timingFunction: 'ease-out'
+      })
+      let rotate = 1800 * this.count + this.getLottery()
+      this.count++
+      this.animation.rotate(rotate).step()
+      this.animation = this.animation.export()
+      this.animation.t = +new Date()
+      setTimeout(() => {
+        this.isDisabled = false
+      }, 5010)
+    },
+    getLottery() {
+      let random = Math.floor(Math.random() * 8)
+      // console.log(random)
+      return 45 * random
+    },
+    goRule() {
+      this.$router.navigateTo({
+        url: '/pages/package/lotteryRule/main'
+      })
+    },
+    goUserPrize() {
+      if (!Auth.checkLogin()) {
+        return false
+      }
+      this.$router.navigateTo({
+        url: '/pages/package/userPrize/main'
+      })
+    }
+  },
+  onShareAppMessage() {}
+}
 </script>
 
 <style lang="scss" scoped>
@@ -46,6 +164,7 @@ export default {}
     height: 688rpx;
     margin: 0 auto;
     position: relative;
+    z-index: 2;
     .img {
       width: 688rpx;
       height: 688rpx;
@@ -54,10 +173,19 @@ export default {}
   }
   .lottery-foot-img {
     margin-top: -88rpx;
-
+    position: relative;
+    .text {
+      position: absolute;
+      left: 50%;
+      bottom: 60rpx;
+      transform: translate(-50%, 0);
+      color: #fff;
+    }
     .img {
       width: 723rpx;
       height: 321rpx;
+      margin: 0 auto;
+      display: block;
     }
   }
   .go-btn {
@@ -82,7 +210,7 @@ export default {}
   background-color: #ffc03c;
   .active-rule {
     position: absolute;
-    top: -1rpx;
+    top: -2rpx;
     right: 20rpx;
     .img {
       width: 95rpx;
@@ -133,6 +261,58 @@ export default {}
         font-weight: bold;
         border-radius: 50%;
         vertical-align: -2rpx;
+      }
+    }
+  }
+}
+.mask {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+.pop-msg {
+  position: fixed;
+  z-index: 100;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  .cont {
+    width: 600rpx;
+    box-sizing: border-box;
+    padding: 80rpx 60rpx;
+    background-color: #fff;
+    border-radius: 30rpx;
+    .result {
+      text-align: center;
+      .text {
+        font-size: 40rpx;
+        font-weight: 100;
+      }
+      .btn {
+        margin-top: 40rpx;
+        display: block;
+        width: 100%;
+        height: 80rpx;
+        font-size: 35rpx;
+        color: #fff;
+        background: #0ab727;
+        border-radius: 40rpx;
+      }
+    }
+    .over {
+      text-align: center;
+      .text {
+        font-size: 32rpx;
+      }
+      .again {
+        padding-top: 30rpx;
+        font-size: 38rpx;
+        font-weight: bold;
+        color: #f00;
       }
     }
   }
