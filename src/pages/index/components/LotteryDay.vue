@@ -4,7 +4,7 @@
       <img class="img" mode="aspectFit" src="../../../assets/images/home/lottery_1.png" alt />
     </div>
     <div class="item">
-      <button open-type="share">
+      <button open-type="share" class="btn">
         <img class="img" mode="aspectFit" src="../../../assets/images/home/lottery_2.png" alt />
       </button>
     </div>
@@ -32,6 +32,11 @@ export default {
   .img {
     width: 334rpx;
     height: 120rpx;
+    .btn {
+      width: 334rpx;
+      height: 120rpx;
+      background: none;
+    }
   }
 }
 </style>
