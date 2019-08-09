@@ -29,14 +29,14 @@ export default {
   padding: 38rpx 30rpx;
   background: #fff;
   justify-content: space-between;
+  .btn {
+    width: 334rpx;
+    height: 120rpx;
+    background: none;
+  }
   .img {
     width: 334rpx;
     height: 120rpx;
-    .btn {
-      width: 334rpx;
-      height: 120rpx;
-      background: none;
-    }
   }
 }
 </style>
