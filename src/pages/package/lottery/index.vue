@@ -3,10 +3,19 @@
     <div class="active-rule" @click="goRule">
       <img class="img" mode="aspectFit" src="../../../assets/images/lottery/lx_choujiang_02.png" alt />
     </div>
-    <div class="tip-tel">
+    <swiper class="swipe" :vertical="true" :autoplay="true" :interval="3000">
+      <swiper-item v-for="(item,index) in tipTel" :key="index">
+        <div class="tip-tel">
+          <img class="img" mode="aspectFit" src="../../../assets/images/lottery/lx_choujiang_01.png" alt />
+          {{item}}
+        </div>
+      </swiper-item>
+    </swiper>
+
+    <!-- <div class="tip-tel">
       <img class="img" mode="aspectFit" src="../../../assets/images/lottery/lx_choujiang_01.png" alt />
       {{tipTel}}
-    </div>
+    </div>-->
     <div class="title">
       <img class="img" mode="aspectFit" src="../../../assets/images/lottery/lx_choujiang_03.png" alt />
     </div>
@@ -50,8 +59,9 @@
 
 <script>
 import Auth from '@/utils/auth.js'
-
+import share from './share'
 import { lotteryList } from './data'
+import { parms } from './param'
 export default {
   data() {
     return {
@@ -66,7 +76,11 @@ export default {
     }
   },
   onLoad() {
-    this.tipTel = lotteryList[this.random()]
+    Object.assign(this.$data, this.$options.data())
+    let arr = [...lotteryList]
+    this.shuffle(arr)
+    this.tipTel = arr
+    // console.log(arr)
     // this.animation = mpvue.createAnimation({
     //   duration: 5000,
     //   timingFunction: 'ease'
@@ -74,6 +88,14 @@ export default {
     // console.log(this.animation)
   },
   methods: {
+    shuffle(arr) {
+      let i = arr.length
+      while (i) {
+        let j = Math.floor(Math.random() * i--) //5555
+        ;[arr[j], arr[i]] = [arr[i], arr[j]]
+      }
+    },
+
     random() {
       return Math.floor(Math.random() * 73)
     },
@@ -90,22 +112,22 @@ export default {
         return false
       }
 
-      let parms = {
-        apiKey: '51baomu',
-        version: '1.0',
-        clientId: '111',
-        reqId: '1',
-        reqTime: '1561538290018',
-        dataType: 'json',
-        data: {
-          chongzhika_huodong_id: '3041',
-          shoujihao: Auth.getInfo('shoujihao'),
-          guanggaozuid: '0',
-          laiyuan: '家事无忧微信小程序'
-        },
-        sign: '1',
-        token: 'login'
-      }
+      // let parms = {
+      //   apiKey: '51baomu',
+      //   version: '1.0',
+      //   clientId: '111',
+      //   reqId: '1',
+      //   reqTime: '1561538290018',
+      //   dataType: 'json',
+      //   data: {
+      //     chongzhika_huodong_id: '3041',
+      //     shoujihao: Auth.getInfo('shoujihao'),
+      //     guanggaozuid: '0',
+      //     laiyuan: '家事无忧微信小程序'
+      //   },
+      //   sign: '1',
+      //   token: 'login'
+      // }
       console.log(parms)
       this.isDisabled = true
 
@@ -149,13 +171,17 @@ export default {
       })
     }
   },
-  onShareAppMessage() {}
+  onShareAppMessage() {
+    return share()
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '@/assets/scss/backgroundImage.scss';
-
+.swipe {
+  height: 60rpx;
+}
 .lottery-cont {
   position: relative;
   margin-top: 14rpx;
@@ -212,13 +238,15 @@ export default {
     position: absolute;
     top: -2rpx;
     right: 20rpx;
+    z-index: 9;
     .img {
       width: 95rpx;
       height: 104rpx;
     }
   }
   .tip-tel {
-    padding-top: 24rpx;
+    padding-top: 12rpx;
+    padding-bottom: 12rpx;
     padding-left: 24rpx;
     font-size: 26rpx;
     color: #312fe1;

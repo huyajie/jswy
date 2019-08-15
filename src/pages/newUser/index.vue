@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import Auth from '@/utils/auth'
 export default {
   data() {
     return {
@@ -25,6 +26,9 @@ export default {
   components: {},
   methods: {
     submit() {
+      if (!Auth.checkLogin()) {
+        return false
+      }
       if (this.mobile == '') {
         this.$utils.showError('手机号不能为空')
         return false

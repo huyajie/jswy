@@ -80,7 +80,7 @@
           <div class="sub-tit">证件 / 作品展示</div>
           <div class="cont-img clearfix">
             <div class="img-item" @click="previewImage(item)" v-for="(item,index) in zhengjiantupian" :key="index">
-              <img class="img" mode="aspectFit" :src="item" alt />
+              <img class="img" mode="aspectFit" :src="item+'?x-oss-process=style/hdd'" alt />
             </div>
             <!-- <div class="img-item">
             <img class="img" mode="aspectFit" src="https://imgs.qunarzz.com/sight/p0/1708/2b/2b3b94de99c0a425a3.img.jpg_222x168_93cb017d.jpg" alt>
@@ -124,6 +124,9 @@ export default {
       showModal: false,
       isLogin: false
     }
+  },
+  onLoad() {
+    this.isLogin = Auth.isLogin()
   },
   onShow() {
     this.isLogin = Auth.isLogin()

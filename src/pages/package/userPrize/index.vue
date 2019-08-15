@@ -18,7 +18,43 @@
 </template>
 
 <script>
-export default {}
+import Auth from '@/utils/auth.js'
+import { parms } from '../lottery/param'
+export default {
+  data() {
+    return {
+      list: []
+    }
+  },
+  onLoad() {
+    this.getData()
+  },
+  methods: {
+    getData() {
+      // http://api.51baomu.cn/v1/Huodong/Zhuanpanchoujiangchaxun
+      // let parms = {
+      //   apiKey: '51baomu',
+      //   version: '1.0',
+      //   clientId: '111',
+      //   reqId: '1',
+      //   reqTime: '1561538290018',
+      //   dataType: 'json',
+      //   data: {
+      //     chongzhika_huodong_id: '3041',
+      //     shoujihao: Auth.getInfo('shoujihao'),
+      //     guanggaozuid: '0',
+      //     laiyuan: '家事无忧微信小程序'
+      //   },
+      //   sign: '1',
+      //   token: 'login'
+      // }
+
+      this.$http.post('https://api.51baomu.cn/v1/Huodong/Zhuanpanchoujiangchaxun', parms).then(res => {
+        console.log(res)
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

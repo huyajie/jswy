@@ -4,7 +4,8 @@
       <img class="img" mode="aspectFit" src="../../../assets/images/home/lottery_1.png" alt />
     </div>
     <div class="item">
-      <button open-type="share" class="btn">
+      <!-- open-type="share" -->
+      <button class="btn" @click="goShare">
         <img class="img" mode="aspectFit" src="../../../assets/images/home/lottery_2.png" alt />
       </button>
     </div>
@@ -12,11 +13,21 @@
 </template>
 
 <script>
+import Auth from '@/utils/auth.js'
+
 export default {
   methods: {
     goLottery() {
       this.$router.navigateTo({
         url: '/pages/package/lottery/main'
+      })
+    },
+    goShare() {
+      if (!Auth.checkLogin()) {
+        return false
+      }
+      this.$router.navigateTo({
+        url: '/pages/invite/main'
       })
     }
   }
