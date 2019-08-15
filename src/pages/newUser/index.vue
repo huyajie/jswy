@@ -4,10 +4,10 @@
       <img class="banner" mode="aspectFit" src="../../assets/images/new_user/banner.png" alt />
     </div>
     <div class="form">
-      <div class="text">输入手机号，自动存入无忧账户</div>
-      <div class="input-block">
+      <!-- <div class="text">输入手机号，自动存入无忧账户</div> -->
+      <!-- <div class="input-block">
         <input class="tel" v-model="mobile" type="number" />
-      </div>
+      </div>-->
       <button :loading="isSubmit" :disabled="isSubmit" @click="submit" class="btn">立即领取</button>
       <div class="desc">抵扣卷用于抵扣服务费</div>
     </div>
@@ -29,14 +29,15 @@ export default {
       if (!Auth.checkLogin()) {
         return false
       }
-      if (this.mobile == '') {
-        this.$utils.showError('手机号不能为空')
-        return false
-      }
-      if (!this.$utils.checkMobile(this.mobile)) {
-        this.$utils.showError('手机号格式不正确')
-        return false
-      }
+      // if (this.mobile == '') {
+      //   this.$utils.showError('手机号不能为空')
+      //   return false
+      // }
+      // if (!this.$utils.checkMobile(this.mobile)) {
+      //   this.$utils.showError('手机号格式不正确')
+      //   return false
+      // }
+      this.mobile = Auth.getInfo('shoujihao')
       this.isSubmit = true
       let parms = {
         apiKey: '51baomu',
