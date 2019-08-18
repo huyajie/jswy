@@ -19,13 +19,13 @@
     <div class="title">
       <img class="img" mode="aspectFit" src="../../../assets/images/lottery/lx_choujiang_03.png" alt />
     </div>
-    <div class="count">
+    <!-- <div class="count">
       <div class="text">
         您还有
         <span class="num">{{hasCount}}</span>
         次免费抽奖机会，电脑等你来拿
       </div>
-    </div>
+    </div>-->
     <div class="lottery-cont">
       <div class="go-btn" @click="rotate">
         <img class="img" mode="aspectFit" src="../../../assets/images/lottery/go.png" alt />
@@ -40,8 +40,11 @@
     </div>
 
     <div class @touchmove.stop v-show="showPop">
-      <div class="mask" @click="showPop = false"></div>
-      <div class="pop-msg">
+      <div class="mask" @click="closePop"></div>
+      <div class="share" v-show="isShare">
+        <img class="img" mode="aspectFit" src="../../../assets/images/lottery/yaoqing.jpg" alt />
+      </div>
+      <div class="pop-msg" v-show="!isShare">
         <div class="cont">
           <div class="over" v-show="isOver">
             <p class="text">今日抽奖已达上限~</p>
@@ -71,7 +74,9 @@ export default {
       showPop: false,
       isOver: false,
       resultPop: false,
+      isShare: false,
       tipTel: '',
+      isFrist: true,
       isDisabled: false
     }
   },
@@ -88,6 +93,12 @@ export default {
     // console.log(this.animation)
   },
   methods: {
+    closePop() {
+      this.showPop = false
+      this.isOver = false
+      this.resultPop = false
+      this.isShare = false
+    },
     shuffle(arr) {
       let i = arr.length
       while (i) {
@@ -106,11 +117,11 @@ export default {
       if (this.isDisabled) {
         return
       }
-      if (this.hasCount <= 0) {
-        this.showPop = true
-        this.isOver = true
-        return false
-      }
+      // if (this.hasCount <= 0) {
+      //   this.showPop = true
+      //   this.isOver = true
+      //   return false
+      // }
 
       // let parms = {
       //   apiKey: '51baomu',
@@ -133,29 +144,74 @@ export default {
 
       this.$http.post('https://api.51baomu.cn/v1/Huodong/Zhuanpanchoujiang', parms).then(res => {
         console.log(res)
-        this.hasCount--
-        this.start()
+        // this.hasCount--
+        this.start(5)
       })
       // this.$http.post('http://api.51baomu.cn/v1/Huodong/Zhuanpanchoujiang')
     },
-    start() {
+    start(step) {
+      let _this = this
       this.animation = mpvue.createAnimation({
         duration: 5000,
         timingFunction: 'ease-out'
       })
-      let rotate = 1800 * this.count + this.getLottery()
+      let result = this.getResult(step)
+      let rotate = 1800 * this.count + this.getLottery(result.num)
       this.count++
       this.animation.rotate(rotate).step()
       this.animation = this.animation.export()
       this.animation.t = +new Date()
       setTimeout(() => {
         this.isDisabled = false
+        mpvue.showModal({
+          title: '恭喜您',
+          content: '获得' + result.txt,
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+              if (_this.isFrist) {
+                _this.showPop = true
+                _this.isShare = true
+                _this.isFrist = false
+              }
+            }
+          }
+        })
       }, 5010)
     },
-    getLottery() {
-      let random = Math.floor(Math.random() * 8)
+    getResult(step) {
+      let arr = [
+        { num: 7, txt: '苹果笔记本电脑' },
+        { num: 3, txt: '无线吸尘器' },
+        { num: 2, txt: '商城立减100' },
+        { num: 6, txt: '商城立减50' },
+        { num: 8, txt: '家政抵扣券200元' },
+        { num: 1, txt: '商城满50减8' },
+        { num: 5, txt: '商城满100减18' },
+        { num: 4, txt: '商城满20减3' }
+      ]
+      return arr[step - 1]
+      //       1、苹果笔记本电脑
+
+      // 2、无线吸尘器
+
+      // 3、商城立减100
+
+      // 4、商城立减50
+
+      // 5、家政抵扣券200元
+
+      // 6、商城满50减8
+
+      // 7、商城满100减18
+
+      // 8、商城满20减3
+    },
+    getLottery(step) {
+      // let random = Math.floor(Math.random() * 8)
       // console.log(random)
-      return 45 * random
+      return 45 * step
     },
     goRule() {
       this.$router.navigateTo({
@@ -301,6 +357,16 @@ export default {
   bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.7);
+}
+.share {
+  .img {
+    width: 440rpx;
+    height: 398rpx;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    right: 120rpx;
+  }
 }
 .pop-msg {
   position: fixed;
