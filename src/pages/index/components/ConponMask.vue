@@ -53,7 +53,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 600rpx;
-  height: 502rpx;
+  height: 433rpx;
   .close {
     position: absolute;
     top: -10rpx;
