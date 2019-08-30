@@ -9,7 +9,7 @@
         <input class="tel" v-model="mobile" type="number" />
       </div>-->
       <button :loading="isSubmit" :disabled="isSubmit" @click="submit" class="btn">立即领取</button>
-      <div class="desc">抵扣卷用于抵扣服务费</div>
+      <div class="desc">优惠券用于抵扣服务费</div>
     </div>
   </div>
 </template>
@@ -39,25 +39,37 @@ export default {
       // }
       this.mobile = Auth.getInfo('shoujihao')
       this.isSubmit = true
+      // let parms = {
+      //   apiKey: '51baomu',
+      //   version: '1.0',
+      //   clientId: '111',
+      //   reqId: '1',
+      //   reqTime: '1561538290018',
+      //   dataType: 'json',
+      //   data: {
+      //     chongzhika_huodong_id: '3041',
+      //     shoujihao: this.mobile,
+      //     guanggaozuid: '0',
+      //     laiyuan: '家事无忧微信小程序'
+      //   },
+      //   sign: '1',
+      //   token: 'login'
+      // }
       let parms = {
         apiKey: '51baomu',
         version: '1.0',
         clientId: '111',
         reqId: '1',
-        reqTime: '1561538290018',
+        reqTime: '1565663155721',
         dataType: 'json',
-        data: {
-          chongzhika_huodong_id: '3041',
-          shoujihao: this.mobile,
-          guanggaozuid: '0',
-          laiyuan: '家事无忧微信小程序'
-        },
+        data: { shoujihao: this.mobile, huodongbianhao: '225' },
         sign: '1',
         token: 'login'
       }
       console.log(parms)
+      //https://www.51baomu.cn/wcfyonghu/appdatacustomer.svc/i_p_chongzhika_huodong
       this.$http
-        .post('https://www.51baomu.cn/wcfyonghu/appdatacustomer.svc/i_p_chongzhika_huodong', JSON.stringify(parms), {
+        .post('https://www.51baomu.cn/wcfyonghu/appdatacustomer.svc/i_p_qianghongbao', JSON.stringify(parms), {
           'content-type': 'application/x-www-form-urlencoded'
         })
         .then(

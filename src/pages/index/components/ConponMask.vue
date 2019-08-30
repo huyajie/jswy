@@ -3,7 +3,7 @@
     <div class="mask"></div>
     <div class="conpon">
       <div class="close" @click="hideConpon"></div>
-      <img class="img" src="../../../assets/images/home/coupon.jpg" alt />
+      <img class="img" src="../../../assets/images/home/coupon.png" alt />
       <div class="btn" @click="goConpon"></div>
     </div>
   </div>
@@ -71,7 +71,7 @@ export default {
   }
   .img {
     width: 600rpx;
-    height: 502rpx;
+    height: 433rpx;
   }
 }
 </style>
