@@ -62,7 +62,7 @@ export default {
         reqId: '1',
         reqTime: '1565663155721',
         dataType: 'json',
-        data: { shoujihao: this.mobile, huodongbianhao: '225' },
+        data: { shoujihao: this.mobile, huodongbianhao: '226' },
         sign: '1',
         token: 'login'
       }
@@ -76,15 +76,26 @@ export default {
           res => {
             console.log(res)
             this.isSubmit = false
-            if (res.status === 1) {
-              mpvue.showModal({
-                showCancel: false,
-                title: '领取成功',
-                content: '使用该手机号登录无忧保姆app查看并使用或签约时告知工作人员即可使用'
+            if (res.status == 1) {
+              this.$router.navigateTo({
+                url: '/pages/giftState/main?type=1'
+              })
+            } else if (res.status == -1) {
+              this.$router.navigateTo({
+                url: '/pages/giftState/main?type=2'
               })
             } else {
               this.$utils.showError(res.message)
             }
+            // if (res.status === 1) {
+            //   mpvue.showModal({
+            //     showCancel: false,
+            //     title: '领取成功',
+            //     content: '使用该手机号登录无忧保姆app查看并使用或签约时告知工作人员即可使用'
+            //   })
+            // } else {
+            //   this.$utils.showError(res.message)
+            // }
             // this.$utils.showError(res.message)
           },
           err => {
